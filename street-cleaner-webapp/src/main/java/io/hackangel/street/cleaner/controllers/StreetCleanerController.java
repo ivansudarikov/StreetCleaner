@@ -1,6 +1,8 @@
 package io.hackangel.street.cleaner.controllers;
 
 import io.angelhack.rest.pojo.Greeting;
+import io.angelhack.rest.pojo.ScenarioVox;
+import io.angelhack.rest.pojo.ScenariosVox;
 import io.angelhack.rest.pojo.UserVox;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +33,16 @@ public class StreetCleanerController {
     public void greeting() {
         RestTemplate restTemplate = new RestTemplate();
         String loginURL = "https://api.voximplant.com/platform_api/Logon/?account_email=sevostyanovg.d@gmail.com&account_password=Uthvfy1q2w3e";
-        ResponseEntity<UserVox> response =
+        ResponseEntity<UserVox> userVox =
                 restTemplate.getForEntity(loginURL, UserVox.class);
-        System.out.println(response);
+        System.out.println(userVox);
+        String getScenarioID = "https://api.voximplant.com/platform_api/GetScenarios/?account_id="
+                + userVox.getBody().getAccount_id() + "&api_key=" + userVox.getBody().getApi_key();
+        ResponseEntity<ScenariosVox> scenariosVox =
+                restTemplate.getForEntity(getScenarioID, ScenariosVox.class);
+        System.out.println(scenariosVox);
+        ScenarioVox scenarioVox = scenariosVox.getBody().getResult().get(0);
+        System.out.println(scenarioVox.getScenario_id());
     }
 
 }
