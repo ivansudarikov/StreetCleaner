@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author Ivan
  * @since 11.06.2016
+ * TODO: Normal persistence configuration
  */
 @Configuration
 public class DummyPersistenceConfiguration {

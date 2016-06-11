@@ -4,6 +4,7 @@ import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.mongodb.enitites.User;
 import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.mongodb.repos.UserRepository;
+import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,8 @@ public class DummyRepositories implements OrderRepository, UserRepository {
 
     @Override
     public void save(Order order) {
+        Assert.notNull(order, "can't save null order");
+        User user = dummyMap.get(order.getImagePath());
     }
 
     public void onStartUp() {
