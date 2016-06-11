@@ -21,6 +21,12 @@ public class Order {
 
     private String userName;
 
+    private String phoneNumber;
+
+    private String latitude;
+
+    private String longitude;
+
     private OrderStatus orderStatus;
 
     public enum OrderStatus {NOT_INITED,IN_PROGRESS,COMPLETED}
@@ -55,6 +61,43 @@ public class Order {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId='" + orderId + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", userName='" + userName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", orderStatus=" + orderStatus +
+                '}';
     }
 }
 

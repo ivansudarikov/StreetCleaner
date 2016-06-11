@@ -3,6 +3,7 @@ package io.hackangel.street.cleaner.controllers;
 import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.rest.pojo.SimpleResponse;
 import io.angelhack.rest.status.Status;
+import io.hackangel.street.cleaner.services.impl.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +21,16 @@ import java.util.UUID;
 @RestController
 public class ImageController {
 
+    @Autowired
+    private OrderService orderService;
+
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public SimpleResponse uploadImage(@RequestParam("userName") String userName, @RequestParam("file") MultipartFile file) {
         SimpleResponse simpleResponse = new SimpleResponse();
         simpleResponse.setStatus(Status.OK);
         File image = saveImage(userName, file);
         simpleResponse.setMessage(image.getName());
+        orderService.saveOrder(userName, image);
         return simpleResponse;
     }
 
