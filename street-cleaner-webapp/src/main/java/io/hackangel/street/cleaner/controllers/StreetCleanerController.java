@@ -1,10 +1,13 @@
 package io.hackangel.street.cleaner.controllers;
 
-import io.angelhack.pojo.Greeting;
+import io.angelhack.rest.pojo.Greeting;
+import io.angelhack.rest.pojo.SimpleResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.concurrent.atomic.AtomicLong;
 

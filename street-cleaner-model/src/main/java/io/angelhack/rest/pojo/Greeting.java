@@ -1,4 +1,4 @@
-package io.angelhack.pojo;
+package io.angelhack.rest.pojo;
 
 /**
  * @author Ivan
