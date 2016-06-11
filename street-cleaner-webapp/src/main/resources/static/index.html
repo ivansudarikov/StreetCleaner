@@ -1,39 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Static</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.0.3/css/bootstrap.min.css" />
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="/css/main.css">
+  <script defer src="js/jquery.js"></script>
+  <script defer src="js/bootstrap.js"></script>
+  <script defer src="js/vue.js"></script>
+  <script defer src="js/main.js"></script>
 </head>
 <body>
-<script type="text/javascript"
-        src="webjars/jquery/2.0.3/jquery.min.js"></script>
-<div id="navbar" class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                data-target=".navbar-collapse">
-            <span class="icon-bar"></span> <span class="icon-bar"></span> <span
-                class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand"
-           href="https://github.com/spring-projects/spring-boot"> Spring Boot
-        </a>
-    </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="../../../../../street-cleaner-model/src/main/java"> Home </a></li>
+
+<div class="container-fluid" id="admin">
+  <div class="row">
+    <div class="col-sm-3 sidebar">
+      <div class="">
+        <div class="sidebar__logo">
+          <img src="img/logo.png" alt="Logo" class="sidebar__logo_img">
+          <h2 class="sidebar__title">Street Cleaner</h2>
+        </div>
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#">Объявления <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Пользователи</a></li>
+          <li><a href="#">Карта объявлений</a></li>
         </ul>
+      </div>
     </div>
+    <div class="col-sm-9 content"  id="vue-app">
+      <h2>Список рекламы</h2>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Изображение</th>
+            <th>Кто добавил</th>
+            <th>Телефон для админов</th>
+            <th>Координаты</th>
+            <th>Статус</th>
+            <th>Позвонить</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="number in numberList">
+            <td>{{number.id}}</td>
+            <td><a href="{{number.image}}"><img width="50px" src="{{number.image}}"></a></td>
+            <td>{{number.name}}</td>
+            <td>{{number.dialPhone}}</td>
+            <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.coordinates}}">Место</a></td>
+            <td>{{number.status}}</td>
+            <td><button type="button" v-on:click="callTo(number.dialPhone)" class="btn btn-primary" :disabled="number.status === 'Calling'">Позвонить</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="jumbotron">
-    <h1>Home</h1>
-    <p>Some static content</p>
-    <p>
-        <a class="btn btn-lg btn-primary" href="#navbar" role="button">Go &raquo;</a>
-    </p>
-</div>
-<script type="text/javascript"
-        src="webjars/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,84 @@
+@import "bootstrap/bootstrap";
+@import "fonts";
+
+$white: #ffffff;
+$darkblue: #3b5d6f;
+
+$blue: #567484;
+$red: #c13f3c;
+
+body {
+	background-color: $white;
+	font-family: 'Helvetica';
+}
+
+.sidebar {
+	background-color: $darkblue;
+	color: white;
+	height: 100vh;
+	padding: 1rem;
+
+	&__logo {
+		margin-bottom: 1rem;
+		line-height: 4rem;
+	}
+
+	&__logo_img {
+		width: 3rem;
+		margin: .5rem;
+		vertical-align: middle;
+	}
+
+	&__title {
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 2em;
+		margin-bottom: 0;
+		font-weight: 600;
+	}
+
+	a {
+		color: $white;
+		font-size: 1.2em;
+		font-weight: 500;
+	}
+}
+
+.nav-sidebar {
+
+	padding-left: 4.1rem;
+
+	li {
+		margin-bottom: 1rem;
+	}
+
+	li.active {
+		position: relative;
+
+		&:before {
+			content: "";
+			display: block;
+			position: absolute;
+			top: .5rem;
+			left: -1.5rem;
+			width: .5rem;
+			height: .5rem;
+			border-radius: 100%;
+			background-color: $white;
+		}
+	}
+}
+
+.content {
+	padding: 2rem 1rem;
+}
+
+.btn.btn-primary {
+	background-color: $red;
+	border: none;
+	transition: all .4s ease;
+
+	&:hover {
+		background-color: darken($red, 10%);
+	}
+}
