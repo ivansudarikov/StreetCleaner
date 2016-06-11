@@ -15,5 +15,16 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.angelhack.street.cleaner</groupId>
+            <artifactId>street-cleaner-model</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>/src/main/java</sourceDirectory>
+    </build>
+
 
 </project>
