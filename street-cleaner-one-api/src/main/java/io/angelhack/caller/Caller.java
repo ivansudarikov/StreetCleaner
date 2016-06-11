@@ -6,6 +6,12 @@ import org.springframework.web.client.RestTemplate;
 
 public class Caller {
     public static void call(String number) {
+        System.out.println(number);
+
+        if (number.startsWith("8")) {
+            number = number.replaceFirst("8", "+7");
+        }
+
         RestTemplate restTemplate = new RestTemplate();
 
         StringBuilder startScenarios = new StringBuilder("https://api.voximplant.com/platform_api/StartScenarios/?account_id=" +
