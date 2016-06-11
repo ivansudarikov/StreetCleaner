@@ -11,5 +11,6 @@ public class StreetCleanerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StreetCleanerApplication.class, args);
+
     }
 }
