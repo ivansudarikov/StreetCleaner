@@ -1,4 +1,4 @@
-package main.java;
+package io.angelhack.caller;
 
 /**
  * Created by mac on 11.06.16.

@@ -1,7 +1,7 @@
 package io.hackangel.street.cleaner.controllers;
 
 import io.angelhack.rest.pojo.Greeting;
-import main.java.Caller;
+import io.angelhack.caller.Caller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

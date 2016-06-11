@@ -1,4 +1,4 @@
-package main.java;
+package io.angelhack.caller;
 
 import io.angelhack.rest.pojo.ResponseScenario;
 import org.springframework.http.ResponseEntity;

@@ -27,10 +27,10 @@ public class UserController {
         String message;
         if (foundUser != null) {
             status = Status.OK;
-            message = "User exists: " + foundUser.getUserName();
+            message = String.format("User %s exists.", foundUser.getUserName());
         } else {
             status = Status.ERROR;
-            message = String.format("User %s not found", foundUser.getUserName());
+            message = String.format("User %s not found.", foundUser.getUserName());
         }
         return getSimpleResponse(status, message);
     }
