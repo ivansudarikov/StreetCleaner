@@ -1,13 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title></title>
   <link rel="stylesheet" href="/css/main.css">
-  <script defer src="js/jquery.js"></script>
-  <script defer src="js/bootstrap.js"></script>
-  <script defer src="js/vue.js"></script>
-  <script defer src="js/main.js"></script>
 </head>
 <body>
 
@@ -45,7 +41,7 @@
           <tbody>
           <tr v-for="number in numberList">
             <td>{{number.orderId}}</td>
-            <td><a href="{{number.imagePath}}"><img width="50px" src="{{number.imagePath}}"></a></td>
+            <td><a href="/image/{{number.imagePath}}"><img width="50px" src="/image/{{number.imagePath}}"></a></td>
             <td>{{number.userName}}</td>
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
@@ -58,5 +54,9 @@
     </div>
   </div>
 </div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

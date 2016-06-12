@@ -5,7 +5,7 @@ var refreshTime = 1000;
 var vm = new Vue({
 	el: '#vue-app',
 	data: {
-		numberList: null
+		numberList: []
 	},
 	methods: {
 		fetchData: function () {
