@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.UUID;
+import java.util.concurrent.Executors;
 
 /**
  * @author Ivan
@@ -28,19 +31,44 @@ public class ImageController {
     public SimpleResponse uploadImage(@RequestParam("userName") String userName, @RequestParam("file") MultipartFile file) {
         SimpleResponse simpleResponse = new SimpleResponse();
         simpleResponse.setStatus(Status.OK);
-        File image = saveImage(userName, file);
-        simpleResponse.setMessage(image.getName());
-        orderService.saveOrder(userName, image);
+        File image;
+        try {
+            image = saveImage(userName, file.getInputStream());
+            orderService.saveOrder(userName, image);
+            simpleResponse.setMessage(image.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return simpleResponse;
     }
 
-    private File saveImage(@RequestParam("userName") String userName, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(method = RequestMethod.GET, value = "/upload")
+    public SimpleResponse uploadImageWithSocket(@RequestParam("userName") String userName) {
+        Executors.newSingleThreadExecutor().submit(() -> {
+            try (ServerSocket serverSocket = new ServerSocket(8081)) {
+                Socket socket = serverSocket.accept();
+                File image = saveImage(userName, socket.getInputStream());
+                orderService.saveOrder(userName, image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        SimpleResponse simpleResponse = new SimpleResponse();
+        simpleResponse.setStatus(Status.OK);
+        simpleResponse.setMessage("Port 8081 for image receiving opened!");
+        return simpleResponse;
+    }
+
+    private File saveImage(String userName, InputStream initialStream ) {
         File folder = new File("/images/" + userName + "//");
         folder.mkdirs();
+        return writeImage(folder, initialStream);
+    }
+
+    private File writeImage(File folder, InputStream initialStream) {
         File image = new File(folder, UUID.randomUUID().toString().replace("-", "") + ".jpg");
         try {
             image.createNewFile();
-            InputStream initialStream = file.getInputStream();
             try (OutputStream outStream = new FileOutputStream(image)) {
                 byte[] buffer = new byte[8 * 1024];
                 int bytesRead;
