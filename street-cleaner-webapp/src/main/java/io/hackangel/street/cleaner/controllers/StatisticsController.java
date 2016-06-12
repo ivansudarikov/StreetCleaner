@@ -1,6 +1,8 @@
 package io.hackangel.street.cleaner.controllers;
 
 import io.angelhack.rest.pojo.response.Statistics;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StatisticsController {
 
-
-    public Statistics statistics(@RequestParam(value = "user") String userName) {
+    @RequestMapping(value = "/statistics", method = RequestMethod.GET)
+    public Statistics statistics(@RequestParam(value = "user", required = false) String userName) {
         return null;
     }
 }

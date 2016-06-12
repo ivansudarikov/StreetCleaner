@@ -26,6 +26,11 @@ public class DummyRepositories implements OrderRepository, UserRepository {
     }
 
     @Override
+    public List<Order> findOrdersByUserName(String userName) {
+        return dummyOrders.get(userName);
+    }
+
+    @Override
     public User findOneByName(String name) {
         return dummyUsers.get(name);
     }
