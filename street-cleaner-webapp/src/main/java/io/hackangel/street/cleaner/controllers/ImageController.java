@@ -4,15 +4,18 @@ import io.angelhack.rest.pojo.SimpleResponse;
 import io.angelhack.rest.status.Status;
 import io.hackangel.street.cleaner.services.impl.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 
@@ -82,6 +85,17 @@ public class ImageController {
             e.printStackTrace();
         }
         return image;
+    }
+
+    @RequestMapping("/image")
+    @ResponseBody
+    public HttpEntity<byte[]> getImage(@RequestParam(value = "imagepath") String imagePath) throws IOException {
+        Path path = Paths.get(imagePath);
+        byte[] image = Files.readAllBytes(path);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG); //or what ever type it is
+        headers.setContentLength(image.length);
+        return new HttpEntity<byte[]>(image, headers);
     }
 
 

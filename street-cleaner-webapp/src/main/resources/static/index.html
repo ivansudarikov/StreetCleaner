@@ -41,7 +41,7 @@
           <tbody>
           <tr v-for="number in numberList">
             <td>{{number.orderId}}</td>
-            <td><a href="/image/{{number.imagePath}}"><img width="50px" src="/image/{{number.imagePath}}"></a></td>
+            <td><a href="/image?imagepath="+{{number.imagePath}}><img width="50px" src="/image?imagepath="+{{number.imagePath}}></a></td>
             <td>{{number.userName}}</td>
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
