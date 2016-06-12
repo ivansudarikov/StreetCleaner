@@ -93,7 +93,7 @@ body {
 	}
 }
 
-@keyframes stretching {
+@keyframes highlight {
 	0% {
 		background-color: inherit;
 		color: inherit;
@@ -108,8 +108,19 @@ body {
 	}
 }
 
+@keyframes scale {
+	0% {
+		transform: scale(6);
+		opacity: .3;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
 .item-new-transition {
-	animation-name: stretching;
+	animation-name: scale;
 	animation-duration: .6s;
 	animation-iteration-count: 1;
 }

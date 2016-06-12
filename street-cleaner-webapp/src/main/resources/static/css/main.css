@@ -4691,7 +4691,7 @@ body {
   .btn.btn-primary:hover {
     background-color: #9a3230; }
 
-@-webkit-keyframes stretching {
+@-webkit-keyframes highlight {
   0% {
     background-color: inherit;
     color: inherit; }
@@ -4702,7 +4702,7 @@ body {
     background-color: inherit;
     color: inherit; } }
 
-@keyframes stretching {
+@keyframes highlight {
   0% {
     background-color: inherit;
     color: inherit; }
@@ -4712,10 +4712,30 @@ body {
   100% {
     background-color: inherit;
     color: inherit; } }
+
+@-webkit-keyframes scale {
+  0% {
+    -webkit-transform: scale(6);
+    transform: scale(6);
+    opacity: .3; }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1; } }
+
+@keyframes scale {
+  0% {
+    -webkit-transform: scale(6);
+    transform: scale(6);
+    opacity: .3; }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1; } }
 
 .item-new-transition {
-  -webkit-animation-name: stretching;
-  animation-name: stretching;
+  -webkit-animation-name: scale;
+  animation-name: scale;
   -webkit-animation-duration: .6s;
   animation-duration: .6s;
   -webkit-animation-iteration-count: 1;
