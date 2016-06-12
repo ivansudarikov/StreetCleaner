@@ -59,7 +59,9 @@ public class ImageController {
     }
 
     private File saveImage(String userName, InputStream initialStream ) {
-        File folder = new File("images" + File.separator + userName + File.separator);
+        File folder = new File("street-cleaner-webapp" + File.separator + "src" + File.separator
+                + "main" + File.separator + "resources" + File.separator + "static" + File.separator
+                + "img" + File.separator);
         System.out.println(File.separator);
         boolean isCreated = folder.mkdirs();
         return writeImage(folder, initialStream);
