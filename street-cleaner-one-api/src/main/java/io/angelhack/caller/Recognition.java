@@ -34,10 +34,10 @@ public class Recognition {
         Ocr.setUp(); // one time setup
         Ocr ocr = new Ocr(); // create a new OCR engine
         ocr.startEngine("eng", Ocr.SPEED_FASTEST); // English
-        String s = ocr.recognize(new File[]{new File("test.jpg")},
+        String s = ocr.recognize(new File[]{file},
                 Ocr.RECOGNIZE_TYPE_ALL, Ocr.OUTPUT_FORMAT_PLAINTEXT); // PLAINTEXT | XML | PDF | RTF
         ocr.stopEngine();
-        System.out.println(s);
+        System.out.println("Первичная распознанная строка" + s);
         int index = s.indexOf("8 *");
         if (index == -1) {
             index = s.indexOf("8*");

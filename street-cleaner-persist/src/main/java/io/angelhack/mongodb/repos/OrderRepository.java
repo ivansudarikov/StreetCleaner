@@ -3,6 +3,7 @@ package io.angelhack.mongodb.repos;
 import io.angelhack.mongodb.enitites.Order;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by sasha_000 on 10.06.2016.
@@ -14,5 +15,7 @@ public interface OrderRepository {
     List<Order> findOrdersByUserName(String userName);
 
     void save(Order order);
+
+    Map<String, List<Order>> getAllOrder();
 
 }

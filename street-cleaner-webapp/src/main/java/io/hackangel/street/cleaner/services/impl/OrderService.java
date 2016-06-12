@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Ivan
@@ -29,6 +31,7 @@ public class OrderService implements OrderCreationService {
     @Override
     public Order saveOrder(String userName, File image) {
         String phoneNumber = Recognition.recognize(image);
+        System.out.println(("Актуальный номер:" + phoneNumber));
         Order order = new Order();
         order.setUserName(userName);
         order.setImagePath(image.getPath());
@@ -43,6 +46,11 @@ public class OrderService implements OrderCreationService {
         System.out.println(order);
         orderRepository.save(order);
         return order;
+    }
+
+    @Override
+    public Map<String, List<Order>> getAllOrders() {
+        return orderRepository.getAllOrder();
     }
 
     private GeoTag readGeoTag(File image) {

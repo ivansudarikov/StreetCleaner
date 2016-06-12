@@ -1,6 +1,5 @@
 package io.hackangel.street.cleaner.controllers;
 
-import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.rest.pojo.SimpleResponse;
 import io.angelhack.rest.status.Status;
 import io.hackangel.street.cleaner.services.impl.OrderService;
@@ -60,8 +59,9 @@ public class ImageController {
     }
 
     private File saveImage(String userName, InputStream initialStream ) {
-        File folder = new File("/images/" + userName + "//");
-        folder.mkdirs();
+        File folder = new File("images" + File.separator + userName + File.separator);
+        System.out.println(File.separator);
+        boolean isCreated = folder.mkdirs();
         return writeImage(folder, initialStream);
     }
 

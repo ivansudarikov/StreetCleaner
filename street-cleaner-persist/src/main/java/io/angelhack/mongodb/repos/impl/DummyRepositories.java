@@ -35,6 +35,8 @@ public class DummyRepositories implements OrderRepository, UserRepository {
         return dummyUsers.get(name);
     }
 
+
+
     @Override
     public void save(Order order) {
         Assert.notNull(order, "can't save null order");
@@ -45,6 +47,11 @@ public class DummyRepositories implements OrderRepository, UserRepository {
             dummyOrders.put(user.getUserName(), ordersByUser);
         }
         ordersByUser.add(order);
+    }
+
+    @Override
+    public Map<String, List<Order>> getAllOrder() {
+        return dummyOrders;
     }
 
     public void onStartUp() {
