@@ -35,18 +35,18 @@
             <th>Телефон для админов</th>
             <th>Координаты</th>
             <th>Статус</th>
-            <th>Позвонить</th>
+            <th>Обзвон</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="number in numberList" track-by="orderId">
             <td>{{number.orderId}}</td>
-            <td><a href="{{'/image?imagepath=' + number.imagePath}}"><img width="50px" src="{{'/image?imagepath=' + number.imagePath}}"></a></td>
+            <td><a href="{{'/image?imagepath=' + number.imagePath}}" class="fancybox"><img width="50px" src="{{'/image?imagepath=' + number.imagePath}}"></a></td>
             <td>{{number.userName}}</td>
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
-            <td>{{number.orderStatus}}</td>
-            <td><button type="button" v-on:click="callTo(number.phoneNumber, number.orderId)" class="btn btn-primary" :disabled="number.orderStatus === 'IN_PROGRESS'">Позвонить</button></td>
+            <td><span class="label {{number.orderStatus | statusColor}}">{{number.orderStatus | statusFilter}}</span></td>
+            <td><button type="button" v-on:click="callTo(number.phoneNumber, number.orderId)" class="btn btn-primary" :disabled="number.orderStatus === 'IN_PROGRESS'">Начать обзвон</button></td>
           </tr>
           </tbody>
         </table>
@@ -57,6 +57,11 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/vue.js"></script>
+
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="css/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/js/jquery.fancybox.pack.js?v=2.1.5"></script>
+
 <script src="js/main.js"></script>
 </body>
 </html>
