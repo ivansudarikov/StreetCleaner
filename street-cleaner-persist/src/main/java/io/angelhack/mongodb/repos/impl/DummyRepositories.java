@@ -47,7 +47,7 @@ public class DummyRepositories implements OrderRepository, UserRepository {
             dummyOrders.put(user.getUserName(), ordersByUser);
         }
         order.setOrderId(atomicInteger.incrementAndGet() + "");
-        timeForUpdate.put(order.getOrderId(), System.currentTimeMillis() + 25000);
+        timeForUpdate.put(order.getOrderId(), System.currentTimeMillis() + 38000);
         ordersByUser.add(order);
     }
 
@@ -66,7 +66,7 @@ public class DummyRepositories implements OrderRepository, UserRepository {
         Optional<Order> first = getAllOrder().stream().filter(order -> order.getOrderId().equals(id)).findFirst();
         first.get().setOrderStatus(status);
         if (Order.OrderStatus.IN_PROGRESS == status) {
-            timeForUpdate.put(id, System.currentTimeMillis() + 25000);
+            timeForUpdate.put(id, System.currentTimeMillis() + 35000);
         }
     }
 

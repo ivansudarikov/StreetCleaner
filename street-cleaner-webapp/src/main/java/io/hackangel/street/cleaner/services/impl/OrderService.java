@@ -46,8 +46,10 @@ public class OrderService implements OrderCreationService {
 
         GeoTag geoTag = readGeoTag(image);
         if (geoTag != null) {
-            order.setLatitude(geoTag.getLatitude() + "");
-            order.setLongitude(geoTag.getLongitude() + "");
+            // geoTag.getLatitude
+            order.setLatitude("59.979984");
+            // geoTag.getLongitude
+            order.setLongitude("30.326916");
         }
         System.out.println(order);
         orderRepository.save(order);
