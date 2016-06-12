@@ -80,13 +80,13 @@ var vm = new Vue({
 			});
 		},
 		updateInfo: function () {
-			//this.fetchData();
+			this.fetchData();
 		}
 	},
 	ready: function () {
 		var self = this;
-		this.numberList = data;
-		//this.fetchData();
+		//this.numberList = data;
+		this.fetchData();
 		setInterval(self.updateInfo, refreshTime);
 	}
 });
