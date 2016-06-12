@@ -39,7 +39,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="number in numberList">
+          <tr v-for="number in numberList" track-by="orderId">
             <td>{{number.orderId}}</td>
             <td><a href="{{'/image?imagepath=' + number.imagePath}}"><img width="50px" src="{{'/image?imagepath=' + number.imagePath}}"></a></td>
             <td>{{number.userName}}</td>
