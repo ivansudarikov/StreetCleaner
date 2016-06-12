@@ -17,4 +17,6 @@ public interface OrderRepository {
 
     List<Order> getAllOrder();
 
+    void updateOrderStatus(String id, Order.OrderStatus status);
+
 }

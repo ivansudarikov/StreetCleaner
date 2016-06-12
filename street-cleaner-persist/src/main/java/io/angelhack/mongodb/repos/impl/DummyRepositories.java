@@ -7,6 +7,7 @@ import io.angelhack.mongodb.repos.UserRepository;
 import org.springframework.util.Assert;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -17,6 +18,8 @@ public class DummyRepositories implements OrderRepository, UserRepository {
 
     private Map<String, User> dummyUsers = new HashMap<>();
     private Map<String, List<Order>> dummyOrders = new HashMap<>();
+    private Map<String, Long> timeForUpdate = new HashMap<>();
+    private AtomicInteger atomicInteger = new AtomicInteger();
 
     @Override
     public Order findByOrderId(String id) {
@@ -34,7 +37,6 @@ public class DummyRepositories implements OrderRepository, UserRepository {
     }
 
 
-
     @Override
     public void save(Order order) {
         Assert.notNull(order, "can't save null order");
@@ -44,13 +46,30 @@ public class DummyRepositories implements OrderRepository, UserRepository {
             ordersByUser = new ArrayList<>();
             dummyOrders.put(user.getUserName(), ordersByUser);
         }
+        order.setOrderId(atomicInteger.incrementAndGet() + "");
+        timeForUpdate.put(order.getOrderId(), System.currentTimeMillis() + 25000);
         ordersByUser.add(order);
     }
 
     @Override
     public List<Order> getAllOrder() {
-        return dummyOrders.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+        return dummyOrders.values().stream().flatMap(Collection::stream).map(order -> {
+            if (timeForUpdate.get(order.getOrderId()) < System.currentTimeMillis()) {
+                order.setOrderStatus(Order.OrderStatus.COMPLETED);
+            }
+            return order;
+        }).collect(Collectors.toList());
     }
+
+    @Override
+    public void updateOrderStatus(String id, Order.OrderStatus status) {
+        Optional<Order> first = getAllOrder().stream().filter(order -> order.getOrderId().equals(id)).findFirst();
+        first.get().setOrderStatus(status);
+        if (Order.OrderStatus.IN_PROGRESS == status) {
+            timeForUpdate.put(id, System.currentTimeMillis() + 25000);
+        }
+    }
+
 
     public void onStartUp() {
         dummyUsers.put("admin", createUser("admin", "admin"));

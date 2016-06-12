@@ -41,12 +41,12 @@
           <tbody>
           <tr v-for="number in numberList">
             <td>{{number.orderId}}</td>
-            <td><a href="/image?imagepath="+{{number.imagePath}}><img width="50px" src="/image?imagepath="+{{number.imagePath}}></a></td>
+            <td><a href="{{'/image?imagepath=' + number.imagePath}}"><img width="50px" src="{{'/image?imagepath=' + number.imagePath}}"></a></td>
             <td>{{number.userName}}</td>
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
             <td>{{number.orderStatus}}</td>
-            <td><button type="button" v-on:click="callTo(number.phoneNumber)" class="btn btn-primary" :disabled="number.orderStatus === 'Calling'">Позвонить</button></td>
+            <td><button type="button" v-on:click="callTo(number.phoneNumber, number.orderId)" class="btn btn-primary" :disabled="number.orderStatus === 'IN_PROGRESS'">Позвонить</button></td>
           </tr>
           </tbody>
         </table>

@@ -1,5 +1,6 @@
 package io.hackangel.street.cleaner.services.impl;
 
+import io.angelhack.caller.Caller;
 import io.angelhack.caller.Recognition;
 import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.mongodb.repos.OrderRepository;
@@ -29,7 +30,13 @@ public class OrderService implements OrderCreationService {
 
     @Override
     public Order saveOrder(String userName, File image) {
-        String phoneNumber = Recognition.recognize(image);
+        String phoneNumber;
+        try {
+            phoneNumber = Recognition.recognize(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        phoneNumber = "89118465234";
         System.out.println(("Актуальный номер:" + phoneNumber));
         Order order = new Order();
         order.setUserName(userName);
@@ -44,6 +51,8 @@ public class OrderService implements OrderCreationService {
         }
         System.out.println(order);
         orderRepository.save(order);
+        order.setOrderStatus(Order.OrderStatus.IN_PROGRESS);
+        Caller.call(order.getPhoneNumber());
         return order;
     }
 

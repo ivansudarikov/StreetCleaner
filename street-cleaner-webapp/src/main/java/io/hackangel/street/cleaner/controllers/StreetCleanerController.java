@@ -1,7 +1,10 @@
 package io.hackangel.street.cleaner.controllers;
 
 import io.angelhack.caller.Caller;
+import io.angelhack.mongodb.enitites.Order;
+import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.rest.pojo.UserVox;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +23,8 @@ public class StreetCleanerController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    private OrderRepository orderRepository;
 
     @RequestMapping(value = "/getData", method = RequestMethod.GET)
     public List<UserVox> test() {
@@ -32,7 +37,9 @@ public class StreetCleanerController {
     }
 
     @RequestMapping(value = "/call", method = RequestMethod.GET)
-    public void startCall(@RequestParam(value = "number", defaultValue = "+79118465234") String number) {
+    public void startCall(@RequestParam(value = "number", defaultValue = "+79118465234") String number,
+                          @RequestParam(value = "id") String id) {
+        orderRepository.updateOrderStatus(id, Order.OrderStatus.IN_PROGRESS);
         Caller.call(number);
     }
 

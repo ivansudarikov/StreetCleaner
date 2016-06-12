@@ -17,9 +17,9 @@ var vm = new Vue({
 				self.numberList = data;
 			});
 		},
-		callTo: function (num) {
+		callTo: function (num, id) {
 			$.ajax({
-				url: '/call?number=' + num,
+				url: '/call?number=' + num +'&id=' + id,
 				jsonp: "callback",
 				dataType: "jsonp"
 			});
