@@ -44,13 +44,13 @@
           </thead>
           <tbody>
           <tr v-for="number in numberList">
-            <td>{{number.id}}</td>
-            <td><a href="{{number.image}}"><img width="50px" src="{{number.image}}"></a></td>
-            <td>{{number.name}}</td>
-            <td>{{number.dialPhone}}</td>
-            <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.coordinates}}">Место</a></td>
-            <td>{{number.status}}</td>
-            <td><button type="button" v-on:click="callTo(number.dialPhone)" class="btn btn-primary" :disabled="number.status === 'Calling'">Позвонить</button></td>
+            <td>{{number.orderId}}</td>
+            <td><a href="{{number.imagePath}}"><img width="50px" src="{{number.imagePath}}"></a></td>
+            <td>{{number.userName}}</td>
+            <td>{{number.phoneNumber}}</td>
+            <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
+            <td>{{number.orderStatus}}</td>
+            <td><button type="button" v-on:click="callTo(number.phoneNumber)" class="btn btn-primary" :disabled="number.orderStatus === 'Calling'">Позвонить</button></td>
           </tr>
           </tbody>
         </table>
