@@ -4636,11 +4636,11 @@ body {
 .sidebar {
   background-color: #3b5d6f;
   color: white;
-  height: 100vh;
   padding: 1rem; }
   .sidebar__logo {
-    margin-bottom: 1rem;
-    line-height: 4rem; }
+    margin-right: 2rem;
+    line-height: 4rem;
+    display: inline-block; }
   .sidebar__logo_img {
     width: 3rem;
     margin: .5rem;
@@ -4672,6 +4672,13 @@ body {
       height: .5rem;
       border-radius: 100%;
       background-color: #ffffff; }
+
+.nav-inline {
+  display: inline-block;
+  line-height: 4rem; }
+  .nav-inline .nav-item {
+    margin-right: 1rem;
+    vertical-align: middle; }
 
 .content {
   padding: 2rem 1rem; }
