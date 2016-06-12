@@ -45,7 +45,7 @@
             <td>{{number.userName}}</td>
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
-            <td><span class="label {{number.orderStatus | statusColor}}">{{number.orderStatus | statusFilter}}</span></td>
+            <td><span class="label {{number.orderStatus | statusColor}} item_status">{{number.orderStatus | statusFilter}}</span></td>
             <td>
               <button type="button"
                       v-on:click="callTo(number.phoneNumber, number.orderId)"
