@@ -46,7 +46,14 @@
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
             <td><span class="label {{number.orderStatus | statusColor}}">{{number.orderStatus | statusFilter}}</span></td>
-            <td><button type="button" v-on:click="callTo(number.phoneNumber, number.orderId)" class="btn btn-primary" :disabled="number.orderStatus === 'IN_PROGRESS'">Начать обзвон</button></td>
+            <td>
+              <button type="button"
+                      v-on:click="callTo(number.phoneNumber, number.orderId)"
+                      class="btn btn-primary"
+                      :disabled="number.orderStatus === 'IN_PROGRESS'">
+                {{number.orderStatus === 'IN_PROGRESS' ? 'Идёт обзвон' : 'Начать обзвон'}}
+              </button>
+            </td>
           </tr>
           </tbody>
         </table>
