@@ -92,3 +92,24 @@ body {
 		background-color: darken($red, 10%);
 	}
 }
+
+@keyframes stretching {
+	0% {
+		background-color: inherit;
+		color: inherit;
+	}
+	35% {
+		background-color: $blue;
+		color: $white;
+	}
+	100% {
+		background-color: inherit;
+		color: inherit;
+	}
+}
+
+.item-new-transition {
+	animation-name: stretching;
+	animation-duration: .6s;
+	animation-iteration-count: 1;
+}

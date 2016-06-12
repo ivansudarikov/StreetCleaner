@@ -4691,4 +4691,34 @@ body {
   .btn.btn-primary:hover {
     background-color: #9a3230; }
 
+@-webkit-keyframes stretching {
+  0% {
+    background-color: inherit;
+    color: inherit; }
+  35% {
+    background-color: #567484;
+    color: #ffffff; }
+  100% {
+    background-color: inherit;
+    color: inherit; } }
+
+@keyframes stretching {
+  0% {
+    background-color: inherit;
+    color: inherit; }
+  35% {
+    background-color: #567484;
+    color: #ffffff; }
+  100% {
+    background-color: inherit;
+    color: inherit; } }
+
+.item-new-transition {
+  -webkit-animation-name: stretching;
+  animation-name: stretching;
+  -webkit-animation-duration: .6s;
+  animation-duration: .6s;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1; }
+
 /*# sourceMappingURL=main.css.map */

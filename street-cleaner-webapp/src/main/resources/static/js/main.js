@@ -25,7 +25,7 @@ var data = [
 Vue.filter('statusFilter', function (value) {
 	switch (value) {
 		case "NOT_INITED":
-			return "Не инфициализирован";
+			return "Не инициализирован";
 		break;
 		case "COMPLETED":
 			return "Завершено";
@@ -74,9 +74,7 @@ var vm = new Vue({
 		},
 		callTo: function (num, id) {
 			$.ajax({
-				url: '/call?number=' + num +'&id=' + id,
-				jsonp: "callback",
-				dataType: "jsonp"
+				url: '/call?number=' + num +'&id=' + id
 			});
 		},
 		updateInfo: function () {
