@@ -1,6 +1,5 @@
 package io.hackangel.street.cleaner.controllers;
 
-import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.rest.pojo.response.Statistics;
 import io.hackangel.street.cleaner.services.impl.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Ivan
@@ -28,7 +26,7 @@ public class StatisticsController {
     }
 
     @RequestMapping(value = "/allOrders", method = RequestMethod.GET)
-    public Map<String, List<Order>> getAllOrders() {
+    public List getAllOrders() {
         return orderService.getAllOrders();
     }
 

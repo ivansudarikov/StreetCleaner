@@ -6,10 +6,8 @@ import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.mongodb.repos.UserRepository;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Ivan
@@ -50,8 +48,8 @@ public class DummyRepositories implements OrderRepository, UserRepository {
     }
 
     @Override
-    public Map<String, List<Order>> getAllOrder() {
-        return dummyOrders;
+    public List<Order> getAllOrder() {
+        return dummyOrders.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public void onStartUp() {

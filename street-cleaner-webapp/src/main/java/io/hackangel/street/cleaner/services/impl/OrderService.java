@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Ivan
@@ -49,7 +48,7 @@ public class OrderService implements OrderCreationService {
     }
 
     @Override
-    public Map<String, List<Order>> getAllOrders() {
+    public List getAllOrders() {
         return orderRepository.getAllOrder();
     }
 
