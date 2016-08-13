@@ -21,25 +21,15 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class StreetCleanerController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
     @Autowired
     private OrderRepository orderRepository;
-
-    @RequestMapping(value = "/getData", method = RequestMethod.GET)
-    public List<UserVox> test() {
-        UserVox userVox = new UserVox();
-        userVox.setAccount_email("test@test.ru");
-        userVox.setAccount_id(10L);
-        List<UserVox> userVoxList = new ArrayList<>();
-        userVoxList.add(userVox);
-        return userVoxList;
-    }
 
     @RequestMapping(value = "/call", method = RequestMethod.GET)
     public void startCall(@RequestParam(value = "number", defaultValue = "+79118465234") String number,
                           @RequestParam(value = "id") String id) {
-        orderRepository.updateOrderStatus(id, Order.OrderStatus.IN_PROGRESS);
+        Order order = orderRepository.findByOrderId(id);
+        order.setOrderStatus(Order.OrderStatus.IN_PROGRESS);
+        orderRepository.save(order);
         Caller.call(number);
     }
 

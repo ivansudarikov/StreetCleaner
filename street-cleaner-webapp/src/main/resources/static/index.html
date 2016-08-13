@@ -42,7 +42,7 @@
           <tr v-for="number in numberList" track-by="orderId" transition="item-new">
             <td>{{number.orderId}}</td>
             <td><a href="{{'/image?imagepath=' + number.imagePath}}" class="fancybox"><img width="50px" src="{{'/image?imagepath=' + number.imagePath}}"></a></td>
-            <td>{{number.userName}}</td>
+            <td>{{number.name}}</td>
             <td>{{number.phoneNumber}}</td>
             <td><a target="_blank" href="https://maps.yandex.ru/?text={{number.latitude}},{{number.longitude}}">Место</a></td>
             <td><span class="label {{number.orderStatus | statusColor}} item_status">{{number.orderStatus | statusFilter}}</span></td>

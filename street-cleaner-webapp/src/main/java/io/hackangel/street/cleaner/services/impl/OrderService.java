@@ -60,7 +60,7 @@ public class OrderService implements OrderCreationService {
 
     @Override
     public List getAllOrders() {
-        return orderRepository.getAllOrder();
+        return orderRepository.findAll();
     }
 
     private GeoTag readGeoTag(File image) {

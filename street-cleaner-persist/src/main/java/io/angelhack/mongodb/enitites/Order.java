@@ -1,5 +1,7 @@
 package io.angelhack.mongodb.enitites;
 
+import org.mongodb.morphia.annotations.Id;
+
 /**
  * Created by sasha_000 on 10.06.2016.
  */
@@ -15,6 +17,7 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
+    @Id
     private String orderId;
 
     private String imagePath;

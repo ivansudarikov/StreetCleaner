@@ -1,5 +1,9 @@
 package io.angelhack.mongodb.enitites;
 
+import com.sun.javafx.beans.IDProperty;
+import org.mongodb.morphia.annotations.Id;
+
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,24 +12,59 @@ import java.util.List;
  */
 public class User {
 
-    private String userName;
+    @Id
+    private String login;
+
+    private String name;
 
     private String password;
 
+    private String surName;
+
+    private String email;
+
+    private Date birth;
+
     List<History> historyList;
 
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSurName() {
+        return surName;
+    }
+
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
+    public User() {}
+
     public User(String userName, String password) {
-        this.userName = userName;
+        this.name = userName;
         this.password = password;
         this.historyList = new LinkedList<History>();
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -44,10 +83,18 @@ public class User {
         this.historyList = historyList;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", historyList=" + historyList +
                 '}';
