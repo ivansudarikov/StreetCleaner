@@ -2,8 +2,6 @@ package io.hackangel.street.cleaner.controllers;
 
 import io.angelhack.rest.pojo.SimpleResponse;
 import io.angelhack.rest.status.Status;
-import io.hackangel.street.cleaner.services.impl.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,8 +24,6 @@ import java.util.concurrent.Executors;
 @RestController
 public class ImageController {
 
-    @Autowired
-    private OrderService orderService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public SimpleResponse uploadImage(@RequestParam("userName") String userName, @RequestParam("file") MultipartFile file) {
@@ -36,7 +32,6 @@ public class ImageController {
         File image;
         try {
             image = saveImage(userName, file.getInputStream());
-            orderService.saveOrder(userName, image);
             simpleResponse.setMessage(image.getName());
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,7 +45,6 @@ public class ImageController {
             try (ServerSocket serverSocket = new ServerSocket(8081)) {
                 Socket socket = serverSocket.accept();
                 File image = saveImage(userName, socket.getInputStream());
-                orderService.saveOrder(userName, image);
             } catch (IOException e) {
                 e.printStackTrace();
             }

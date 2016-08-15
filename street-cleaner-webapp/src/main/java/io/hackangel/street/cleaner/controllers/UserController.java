@@ -1,13 +1,19 @@
 package io.hackangel.street.cleaner.controllers;
 
+import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.mongodb.enitites.User;
+import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.rest.pojo.response.UserPojo;
 import io.angelhack.rest.pojo.response.UserResponse;
 import io.angelhack.rest.pojo.response.UserInformationResponse;
 import io.angelhack.rest.status.Status;
+import org.mongodb.morphia.geo.PointBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,10 +32,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     /**
-     *
+     * Converter from Morphia entity to response.
      */
-    @Qualifier(value = "userPojoToEntityMapper")
-    Converter<User,UserPojo> userEntityToPojoConverter;
+    @Qualifier(value = "userEntityToUserResponseConverter")
+    Converter<User, UserInformationResponse> userEntityToPojoConverter;
 
     /**
      * Gets information about user (name, surname etc.).
@@ -41,15 +47,21 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public UserInformationResponse getInfo() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        UserPojo userPojo = userEntityToPojoConverter.convert(user);
+        UserInformationResponse userPojo = userEntityToPojoConverter.convert(user);
         return userPojo;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/")
+    public UserResponse updateUser(@RequestBody UserPojo user) {
+        //TODO implement
+        return null;
+    }
+
     /**
-     *
+     * Creates response for operation with given status and user.
      * @param status
      * @param user
-     * @return
+     * @return operation response
      */
     private UserResponse getUserResponse(Status status, User user) {
         UserResponse userResponse = new UserResponse();

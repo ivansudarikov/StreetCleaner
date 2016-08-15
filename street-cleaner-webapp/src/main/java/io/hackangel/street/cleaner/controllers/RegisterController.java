@@ -1,5 +1,7 @@
 package io.hackangel.street.cleaner.controllers;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import io.angelhack.mongodb.enitites.User;
 import io.angelhack.mongodb.repos.UserRepository;
 import io.angelhack.rest.pojo.response.UserPojo;
@@ -7,7 +9,6 @@ import io.angelhack.rest.pojo.response.UserResponse;
 import io.angelhack.rest.status.Status;
 import io.hackangel.street.cleaner.security.Authorities;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
