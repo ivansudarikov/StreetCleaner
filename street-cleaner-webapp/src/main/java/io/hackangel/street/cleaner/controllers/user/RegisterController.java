@@ -1,14 +1,14 @@
-package io.hackangel.street.cleaner.controllers;
-
-import org.springframework.beans.factory.annotation.Qualifier;
+package io.hackangel.street.cleaner.controllers.user;
 
 import io.angelhack.mongodb.enitites.User;
 import io.angelhack.mongodb.repos.UserRepository;
 import io.angelhack.rest.pojo.response.UserPojo;
 import io.angelhack.rest.pojo.response.UserResponse;
 import io.angelhack.rest.status.Status;
+import io.hackangel.street.cleaner.controllers.ControllerConstants;
 import io.hackangel.street.cleaner.security.Authorities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,12 +27,12 @@ import java.util.List;
  * Created by amylniko on 26.07.2016.
  */
 @RestController
-@RequestMapping("")
+@RequestMapping(value = ControllerConstants.USER_CONTROLLER_PATH)
 public class RegisterController {
 
     @Autowired
     @Qualifier(value = "userPojoToEntityMapper")
-    private Converter<UserPojo,User> userPojoToEntityConverter;
+    private Converter<UserPojo, User> userPojoToEntityConverter;
 
     @Autowired
     @Qualifier(value = "userPojoValidator")
@@ -42,13 +42,12 @@ public class RegisterController {
     private UserRepository userRepository;
 
     /**
-     *
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public UserResponse register(@RequestBody UserPojo user) {
         //TODO validate request
-        User newUser =userPojoToEntityConverter.convert(user);
+        User newUser = userPojoToEntityConverter.convert(user);
 
         //TODo Set information to user
         userRepository.save(newUser);
@@ -69,7 +68,7 @@ public class RegisterController {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Authorities.USER.name()));
         SecurityContextHolder.getContext().
-                setAuthentication(new UsernamePasswordAuthenticationToken(user.getName(),user.getPassword(),authorities));
+                setAuthentication(new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword(), authorities));
     }
 
 }
