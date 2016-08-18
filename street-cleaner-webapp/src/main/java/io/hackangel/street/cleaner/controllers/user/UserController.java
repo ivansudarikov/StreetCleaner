@@ -6,6 +6,7 @@ import io.angelhack.rest.pojo.response.UserResponse;
 import io.angelhack.rest.pojo.response.UserInformationResponse;
 import io.angelhack.rest.status.Status;
 import io.hackangel.street.cleaner.controllers.ControllerConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,7 @@ public class UserController {
     /**
      * Converter from Morphia entity to response.
      */
+    @Autowired
     @Qualifier(value = "userEntityToUserResponseConverter")
     private Converter<User, UserInformationResponse> userEntityToPojoConverter;
 
@@ -39,13 +41,13 @@ public class UserController {
      *
      * @return user's indormation.
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/")
+    @RequestMapping(method = RequestMethod.GET, value = "")
     public UserInformationResponse getInfo() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
         return userEntityToPojoConverter.convert(user);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/")
+    @RequestMapping(method = RequestMethod.POST, value = "")
     public UserResponse updateUser(@RequestBody UserPojo user) {
         //TODO implement
         return null;
