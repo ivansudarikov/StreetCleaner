@@ -39,23 +39,7 @@ public class ImageController {
         return simpleResponse;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/upload")
-    public SimpleResponse uploadImageWithSocket(@RequestParam("userName") String userName) {
-        Executors.newSingleThreadExecutor().submit(() -> {
-            try (ServerSocket serverSocket = new ServerSocket(8081)) {
-                Socket socket = serverSocket.accept();
-                File image = saveImage(userName, socket.getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        SimpleResponse simpleResponse = new SimpleResponse();
-        simpleResponse.setStatus(Status.OK);
-        simpleResponse.setMessage("Port 8081 for image receiving opened!");
-        return simpleResponse;
-    }
-
-    private File saveImage(String userName, InputStream initialStream ) {
+    private File saveImage(String userName, InputStream initialStream) {
         File folder = new File(File.separator + "images" + File.separator + userName + File.separator);
         folder.mkdirs();
         return writeImage(folder, initialStream);
@@ -88,6 +72,4 @@ public class ImageController {
         headers.setContentLength(image.length);
         return new HttpEntity<byte[]>(image, headers);
     }
-
-
 }

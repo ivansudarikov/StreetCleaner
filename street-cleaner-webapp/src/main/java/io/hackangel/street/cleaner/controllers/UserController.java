@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
  * Controller for user operations, such as get information (name, email, etc.),
  * update user information, upload new order.
  *
@@ -35,11 +34,11 @@ public class UserController {
      * Converter from Morphia entity to response.
      */
     @Qualifier(value = "userEntityToUserResponseConverter")
-    Converter<User, UserInformationResponse> userEntityToPojoConverter;
+    private Converter<User, UserInformationResponse> userEntityToPojoConverter;
 
     /**
      * Gets information about user (name, surname etc.).
-     *
+     * <p>
      * NOTE! No user id must be sended, because we can get user by jsessionid.
      *
      * @return user's indormation.
@@ -47,8 +46,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public UserInformationResponse getInfo() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        UserInformationResponse userPojo = userEntityToPojoConverter.convert(user);
-        return userPojo;
+        return userEntityToPojoConverter.convert(user);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
@@ -59,6 +57,7 @@ public class UserController {
 
     /**
      * Creates response for operation with given status and user.
+     *
      * @param status
      * @param user
      * @return operation response
@@ -68,5 +67,4 @@ public class UserController {
         userResponse.setStatus(status);
         return userResponse;
     }
-
 }

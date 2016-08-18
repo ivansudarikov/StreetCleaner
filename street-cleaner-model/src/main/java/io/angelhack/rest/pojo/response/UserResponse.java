@@ -1,6 +1,5 @@
 package io.angelhack.rest.pojo.response;
 
-import io.angelhack.rest.pojo.response.UserPojo;
 import io.angelhack.rest.status.Status;
 
 /**
