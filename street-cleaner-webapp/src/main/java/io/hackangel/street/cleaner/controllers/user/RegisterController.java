@@ -67,8 +67,9 @@ public class RegisterController {
     private void grantUserPermission(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Authorities.USER.name()));
-        SecurityContextHolder.getContext().
-                setAuthentication(new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword(), authorities));
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword(), authorities);
+        authentication.setDetails(user);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
 }
