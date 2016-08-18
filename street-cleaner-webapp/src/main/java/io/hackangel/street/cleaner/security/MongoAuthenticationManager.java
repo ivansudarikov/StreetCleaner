@@ -21,24 +21,24 @@ import java.util.List;
 public class MongoAuthenticationManager implements AuthenticationProvider {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UsernamePasswordAuthenticationToken token;
         User user = userRepository.findByName((String) authentication.getPrincipal());
-        if(user==null || !user.getPassword().equals(authentication.getCredentials())) {
+        if (user == null || !user.getPassword().equals(authentication.getCredentials())) {
             throw new BadCredentialsException("User not found");
         }
-        ((UserDetails)authentication.getDetails()).setUser(user);
+        ((UserDetails) authentication.getDetails()).setUser(user);
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Authorities.USER.authority));
-        return new UsernamePasswordAuthenticationToken(((String)authentication.getPrincipal()),authorities);
+        return new UsernamePasswordAuthenticationToken(((String) authentication.getPrincipal()), authorities);
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
-        if(aClass.equals(UsernamePasswordAuthenticationToken.class)) {
+        if (aClass.equals(UsernamePasswordAuthenticationToken.class)) {
             return true;
         }
         return false;
