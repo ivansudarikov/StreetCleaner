@@ -8,6 +8,8 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <security:global-method-security pre-post-annotations="enabled"/>
+
     <beans:bean id="restAuthenticationEntryPoint" class="io.hackangel.street.cleaner.security.RestAuthenticationEntryPoint"/>
 
     <http entry-point-ref="restAuthenticationEntryPoint" use-expressions="true" auto-config="false" >
