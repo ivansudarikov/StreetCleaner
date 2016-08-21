@@ -17,7 +17,7 @@ public class UserEntityToPojoMapper implements Converter<User,UserPojo> {
         userPojo.setBirth(user.getBirth());
         userPojo.setSurName(user.getSurName());
         userPojo.setEmail(user.getEmail());
-        userPojo.setUserName(user.getLogin());
+        userPojo.setName(user.getLogin());
         return userPojo;
     }
 }

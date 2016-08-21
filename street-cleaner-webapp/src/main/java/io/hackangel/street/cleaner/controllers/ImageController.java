@@ -22,8 +22,8 @@ import java.util.concurrent.Executors;
  * @since 11.06.2016
  */
 @RestController
+@RequestMapping("/rest/image")
 public class ImageController {
-
 
     @RequestMapping(method = RequestMethod.POST, value = "/upload")
     public SimpleResponse uploadImage(@RequestParam("userName") String userName, @RequestParam("file") MultipartFile file) {

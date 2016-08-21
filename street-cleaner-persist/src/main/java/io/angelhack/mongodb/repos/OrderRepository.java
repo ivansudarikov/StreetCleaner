@@ -16,7 +16,12 @@ public class OrderRepository extends MongoRepository<Order,String> {
     }
 
     public Order findByOrderId(String id) {
+        return find(id);
+    }
+
+    public List<Order> findNearestOrders() {
         return null;
     }
+
 
 }

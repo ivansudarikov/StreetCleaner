@@ -1,9 +1,12 @@
 package io.angelhack.mongodb.enitites;
 
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.geo.Point;
+
+import javax.annotation.Generated;
 
 /**
- * Created by sasha_000 on 10.06.2016.
+ * @author amylnikov
  */
 public class Order {
 
@@ -11,14 +14,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(String orderId, String imagePath, OrderStatus orderStatus) {
-        this.orderId = orderId;
-        this.imagePath = imagePath;
-        this.orderStatus = orderStatus;
-    }
-
     @Id
-    private String orderId;
+    private Object id;
 
     private String imagePath;
 
@@ -26,20 +23,18 @@ public class Order {
 
     private String phoneNumber;
 
-    private String latitude;
-
-    private String longitude;
+    private Point position;
 
     private OrderStatus orderStatus;
 
     public enum OrderStatus {NOT_INITED,IN_PROGRESS,COMPLETED}
 
-    public String getOrderId() {
-        return orderId;
+    public Object getId() {
+        return id;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setId(Object id) {
+        this.id = id;
     }
 
     public String getImagePath() {
@@ -74,31 +69,20 @@ public class Order {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getLatitude() {
-        return latitude;
+    public Point getPosition() {
+        return position;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setPosition(Point position) {
+        this.position = position;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                "orderId='" + orderId + '\'' +
                 ", imagePath='" + imagePath + '\'' +
                 ", userName='" + userName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
                 ", orderStatus=" + orderStatus +
                 '}';
     }

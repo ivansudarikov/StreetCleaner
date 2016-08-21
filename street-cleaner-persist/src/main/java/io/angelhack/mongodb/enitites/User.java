@@ -1,6 +1,7 @@
 package io.angelhack.mongodb.enitites;
 
 import com.sun.javafx.beans.IDProperty;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 
 import java.util.Date;
@@ -25,6 +26,9 @@ public class User {
 
     private Date birth;
 
+    private int imageId;
+
+    @Embedded
     List<History> historyList;
 
     public Date getBirth() {
@@ -89,6 +93,14 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     @Override

@@ -7,7 +7,9 @@ import java.util.Date;
  */
 public class UserPojo {
 
-    String userName;
+    String login;
+
+    String name;
 
     String password;
 
@@ -41,12 +43,12 @@ public class UserPojo {
         this.birth = birth;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -57,4 +59,11 @@ public class UserPojo {
         this.password = password;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 }

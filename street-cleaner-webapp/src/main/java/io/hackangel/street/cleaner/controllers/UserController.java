@@ -1,17 +1,15 @@
 package io.hackangel.street.cleaner.controllers;
 
-import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.mongodb.enitites.User;
-import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.rest.pojo.response.UserPojo;
 import io.angelhack.rest.pojo.response.UserResponse;
-import io.angelhack.rest.pojo.response.UserInformationResponse;
+import io.angelhack.rest.pojo.response.UserInformation;
 import io.angelhack.rest.status.Status;
-import org.mongodb.morphia.geo.PointBuilder;
+import io.hackangel.street.cleaner.security.UserDetails;
+import io.hackangel.street.cleaner.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +29,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest/user")
 public class UserController {
 
+    @Autowired
+    private UserServiceImpl userService;
+
     /**
      * Converter from Morphia entity to response.
      */
     @Qualifier(value = "userEntityToUserResponseConverter")
-    Converter<User, UserInformationResponse> userEntityToPojoConverter;
+    Converter<User, UserInformation> userEntityToPojoConverter;
 
     /**
      * Gets information about user (name, surname etc.).
@@ -45,25 +46,23 @@ public class UserController {
      * @return user's indormation.
      */
     @RequestMapping(method = RequestMethod.GET, value = "/")
-    public UserInformationResponse getInfo() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        UserInformationResponse userPojo = userEntityToPojoConverter.convert(user);
-        return userPojo;
+    public UserInformation getInfo() {
+        UserInformation userInformation = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUserInformation();
+        return userInformation;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
     public UserResponse updateUser(@RequestBody UserPojo user) {
-        //TODO implement
-        return null;
+        userService.updateUser(user);
+        return getUserResponse(Status.OK);
     }
 
     /**
      * Creates response for operation with given status and user.
      * @param status
-     * @param user
      * @return operation response
      */
-    private UserResponse getUserResponse(Status status, User user) {
+    private UserResponse getUserResponse(Status status) {
         UserResponse userResponse = new UserResponse();
         userResponse.setStatus(status);
         return userResponse;

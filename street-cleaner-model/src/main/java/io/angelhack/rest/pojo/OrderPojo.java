@@ -5,8 +5,6 @@ package io.angelhack.rest.pojo;
  */
 public class OrderPojo {
 
-
-
     GeolocationPojo geolocation;
 
     OrderInfoPojo orderInfo;
