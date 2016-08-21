@@ -5,10 +5,10 @@ package io.hackangel.street.cleaner.security;
  */
 public enum Authorities {
 
-    USER("user"),ADMIN("admin");
+    USER("user"), ADMIN("admin");
     String authority;
 
     Authorities(String authority) {
-        this.authority=authority;
+        this.authority = authority;
     }
 }

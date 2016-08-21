@@ -1,9 +1,9 @@
-package io.hackangel.street.cleaner.controllers;
+package io.hackangel.street.cleaner.controllers.order;
 
 import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.rest.pojo.OrderPojo;
 import io.angelhack.rest.pojo.SimpleResponse;
-import io.hackangel.street.cleaner.Util.ImageUtil;
+import io.hackangel.street.cleaner.controllers.ControllerConstants;
 import io.hackangel.street.cleaner.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
  * Created by amylniko on 09.08.2016.
  */
 @RestController
-@RequestMapping("/rest/order")
+@RequestMapping(value = ControllerConstants.ORDER_CONTROLLER_PATH)
 public class OrderController {
 
     @Autowired

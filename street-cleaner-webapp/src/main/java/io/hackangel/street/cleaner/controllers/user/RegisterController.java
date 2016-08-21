@@ -1,14 +1,14 @@
 package io.hackangel.street.cleaner.controllers;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import io.angelhack.mongodb.enitites.User;
 import io.angelhack.mongodb.repos.UserRepository;
-import io.angelhack.rest.pojo.response.UserInformation;
 import io.angelhack.rest.pojo.response.UserPojo;
 import io.angelhack.rest.pojo.response.UserResponse;
 import io.angelhack.rest.status.Status;
 import io.hackangel.street.cleaner.security.Authorities;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,14 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for registration (not secured).
- *
- * @author amylnikov
- * @since 1.0
- *
+ * Created by amylniko on 26.07.2016.
  */
 @RestController
-@RequestMapping("")
+@RequestMapping(value = ControllerConstants.USER_CONTROLLER_PATH)
 public class RegisterController {
 
     /**
@@ -39,7 +35,7 @@ public class RegisterController {
      */
     @Autowired
     @Qualifier(value = "userPojoToEntityMapper")
-    private Converter<UserPojo,User> userPojoToEntityConverter;
+    private Converter<UserPojo, User> userPojoToEntityConverter;
 
     @Autowired
     @Qualifier(value = "userPojoValidator")
@@ -54,7 +50,6 @@ public class RegisterController {
      */
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public UserResponse register(@RequestBody UserPojo user) {
-
         //TODO validate request
         User newUser =userPojoToEntityConverter.convert(user);
 
@@ -71,31 +66,14 @@ public class RegisterController {
     }
 
     /**
-     * Grants user permission to current context and creates session information about user.
+     * Grants user permission to current context
      */
     private void grantUserPermission(User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Authorities.USER.name()));
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getName(),user.getPassword(),authorities);
-        token.setDetails(getDetails(user));
-        SecurityContextHolder.getContext().
-                setAuthentication(token);
-    }
-
-    /**
-     * Creates UserInformation object for session
-     * @param user user's entity whuch persists in DB
-     * @return Session user's information
-     */
-    private UserInformation getDetails(User user) {
-        UserInformation userInformation = new UserInformation();
-        userInformation.setName(user.getName());
-        userInformation.setUserName(user.getLogin());
-        userInformation.setBirth(user.getBirth());
-        userInformation.setImageId(0);
-        userInformation.setEmail(user.getEmail());
-        userInformation.setSurName(user.getSurName());
-        return userInformation;
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword(), authorities);
+        authentication.setDetails(user);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
 }

@@ -1,6 +1,5 @@
 package io.angelhack.mongodb.config;
 
-import com.mongodb.DB;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
@@ -31,8 +30,7 @@ public class MongoConfiguration {
         Morphia morphia = new Morphia();
         morphia.map(User.class);
         morphia.map(Order.class);
-        Datastore ds = morphia.createDatastore((MongoClient) mongo,MONGO_DATABSE_NAME);
-        return ds;
+        return morphia.createDatastore((MongoClient) mongo, MONGO_DATABSE_NAME);
     }
 
 }

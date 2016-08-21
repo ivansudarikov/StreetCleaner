@@ -19,7 +19,6 @@
 
     <modules>
         <module>street-cleaner-model</module>
-        <module>street-cleaner-one-api</module>
         <module>street-cleaner-persist</module>
         <module>street-cleaner-webapp</module>
     </modules>

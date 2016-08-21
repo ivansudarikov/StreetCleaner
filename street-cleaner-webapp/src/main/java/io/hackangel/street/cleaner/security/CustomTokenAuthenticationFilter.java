@@ -1,6 +1,5 @@
 package io.hackangel.street.cleaner.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -24,8 +23,8 @@ public class CustomTokenAuthenticationFilter extends UsernamePasswordAuthenticat
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String userName = request.getHeader("username");
         String pass = request.getHeader("password");
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName,pass);
-        setDetails(request,token);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, pass);
+        setDetails(request, token);
         return getAuthenticationManager().authenticate(token);
     }
 
@@ -41,9 +40,9 @@ public class CustomTokenAuthenticationFilter extends UsernamePasswordAuthenticat
         authRequest.setDetails(new UserDetails());
     }
 
-    private String  getJSessionId(Cookie[] cookies) {
+    private String getJSessionId(Cookie[] cookies) {
         for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("JSESSIONID")) {
+            if (cookie.getName().equals("JSESSIONID")) {
                 return cookie.getValue();
             }
         }

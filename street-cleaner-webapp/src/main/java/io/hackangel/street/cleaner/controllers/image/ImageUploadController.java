@@ -1,10 +1,12 @@
-package io.hackangel.street.cleaner.controllers;
+package io.hackangel.street.cleaner.controllers.image;
 
 import io.angelhack.rest.pojo.SimpleResponse;
 import io.angelhack.rest.status.Status;
+import io.hackangel.street.cleaner.controllers.ControllerConstants;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,16 +24,18 @@ import java.util.concurrent.Executors;
  * @since 11.06.2016
  */
 @RestController
-@RequestMapping("/rest/image")
-public class ImageController {
+@RequestMapping(value = ControllerConstants.IMAGE_CONTROLLER_PATH)
+public class ImageUploadController {
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload")
-    public SimpleResponse uploadImage(@RequestParam("userName") String userName, @RequestParam("file") MultipartFile file) {
+
+    @RequestMapping(method = RequestMethod.POST, value = "/upload/{imageType}")
+    @PreAuthorize("isAuthenticated()")
+    public SimpleResponse uploadJpegImage(@PathVariable("imageType") String imageType, @RequestParam("file") MultipartFile file) {
         SimpleResponse simpleResponse = new SimpleResponse();
         simpleResponse.setStatus(Status.OK);
         File image;
         try {
-            image = saveImage(userName, file.getInputStream());
+            image = saveImage("", imageType, file.getInputStream());
             simpleResponse.setMessage(image.getName());
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,23 +43,7 @@ public class ImageController {
         return simpleResponse;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/upload")
-    public SimpleResponse uploadImageWithSocket(@RequestParam("userName") String userName) {
-        Executors.newSingleThreadExecutor().submit(() -> {
-            try (ServerSocket serverSocket = new ServerSocket(8081)) {
-                Socket socket = serverSocket.accept();
-                File image = saveImage(userName, socket.getInputStream());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        SimpleResponse simpleResponse = new SimpleResponse();
-        simpleResponse.setStatus(Status.OK);
-        simpleResponse.setMessage("Port 8081 for image receiving opened!");
-        return simpleResponse;
-    }
-
-    private File saveImage(String userName, InputStream initialStream ) {
+    private File saveImage(String userName, String type, InputStream initialStream) {
         File folder = new File(File.separator + "images" + File.separator + userName + File.separator);
         folder.mkdirs();
         return writeImage(folder, initialStream);
@@ -78,7 +66,7 @@ public class ImageController {
         return image;
     }
 
-    @RequestMapping("/image")
+    @RequestMapping("")
     @ResponseBody
     public HttpEntity<byte[]> getImage(@RequestParam(value = "imagepath") String imagePath) throws IOException {
         Path path = Paths.get(imagePath);
