@@ -62,7 +62,6 @@ public class UserController {
     /**
      * Creates response for operation with given status and user.
      * @param status
-     * @param user
      * @return operation response
      */
     private UserResponse getUserResponse(Status status) {
