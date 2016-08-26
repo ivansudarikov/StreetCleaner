@@ -35,18 +35,7 @@ public class CustomTokenAuthenticationFilter extends UsernamePasswordAuthenticat
 
     @Override
     protected void setDetails(HttpServletRequest request, UsernamePasswordAuthenticationToken authRequest) {
-        //UserDetails userDetails = new UserDetails();
-        //authRequest.setDetails(new UserDetails());
         authRequest.setDetails(new UserDetails());
-    }
-
-    private String getJSessionId(Cookie[] cookies) {
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("JSESSIONID")) {
-                return cookie.getValue();
-            }
-        }
-        return null;
     }
 
 }

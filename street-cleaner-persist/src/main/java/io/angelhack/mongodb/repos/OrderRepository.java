@@ -1,6 +1,7 @@
 package io.angelhack.mongodb.repos;
 
 import io.angelhack.mongodb.enitites.Order;
+import org.mongodb.morphia.geo.GeoJson;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class OrderRepository extends MongoRepository<Order,String> {
         return find(id);
     }
 
-    public List<Order> findNearestOrders() {
-        return null;
+    public List<Order> findNearestOrders(double latitude, double longitude) {
+        return datastore.find(classType).field("position").near(GeoJson.point(latitude,longitude),100000000).asList();
     }
 
 

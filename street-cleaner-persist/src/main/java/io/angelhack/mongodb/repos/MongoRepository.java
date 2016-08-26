@@ -24,7 +24,7 @@ public abstract class MongoRepository<E,K>  {
     /**
      * Entity class.
      */
-    private Class<E> classType;
+    protected Class<E> classType;
 
     /**
      * Default method for save entity.

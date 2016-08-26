@@ -27,7 +27,7 @@ public interface OrderService {
      * @param longitude
      * @return
      */
-    List<OrderPojo> getNearestOrders(double latitude, double longitude);
+    List<Order> getNearestOrders(double latitude, double longitude);
 
     /**
      *

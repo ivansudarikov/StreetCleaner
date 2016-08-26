@@ -1,12 +1,5 @@
 package io.hackangel.street.cleaner;
 
-import io.angelhack.mongodb.enitites.Order;
-import io.angelhack.mongodb.repos.OrderRepository;
-import org.mongodb.morphia.geo.GeometryCollection;
-import org.mongodb.morphia.geo.Point;
-import org.mongodb.morphia.geo.PointBuilder;
-import org.mongodb.morphia.query.Shape;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

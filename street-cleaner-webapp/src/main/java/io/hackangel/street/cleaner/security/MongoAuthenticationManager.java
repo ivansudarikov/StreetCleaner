@@ -32,7 +32,6 @@ public class MongoAuthenticationManager implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UsernamePasswordAuthenticationToken token;
         User user = userRepository.find((String) authentication.getPrincipal());
         if(user==null || !user.getPassword().equals(authentication.getCredentials())) {
             throw new BadCredentialsException("User not found");
@@ -41,7 +40,7 @@ public class MongoAuthenticationManager implements AuthenticationProvider {
         ((UserDetails)authentication.getDetails()).setUserInformation(userInformation);
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Authorities.USER.authority));
-        return new UsernamePasswordAuthenticationToken(((String)authentication.getPrincipal()),authorities);
+        return new UsernamePasswordAuthenticationToken(authentication.getPrincipal(),authentication.getCredentials(),authorities);
     }
 
     @Override

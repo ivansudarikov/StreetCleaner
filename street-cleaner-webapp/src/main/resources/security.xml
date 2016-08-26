@@ -8,17 +8,14 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:global-method-security pre-post-annotations="enabled"/>
-
     <beans:bean id="restAuthenticationEntryPoint" class="io.hackangel.street.cleaner.security.RestAuthenticationEntryPoint"/>
 
     <http entry-point-ref="restAuthenticationEntryPoint" use-expressions="true" auto-config="false" >
         <custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"   />
         <!-- Register should be accessible -->
-        <intercept-url pattern="/rest/**/register" access="permitAll"/>
+        <intercept-url pattern="/rest/**/register" access="permitAll()"/>
         <intercept-url pattern="/rest/**" access="isAuthenticated()" />
         <logout logout-url="/logout" invalidate-session="true"/>
-        <intercept-url pattern="/token/**" access="ROLE_USER" />
         <csrf disabled="true"/>
     </http>
 
@@ -30,9 +27,7 @@
         <beans:property name="authenticationManager" ref="authManager"/>
         <beans:property name="authenticationSuccessHandler" ref="authenticationSuccessHandler"  />
         <beans:property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
-        <beans:property name="usernameParameter" value="username"/>
         <beans:property name="postOnly" value="true"/>
-        <beans:property name="passwordParameter" value="password"/>
         <beans:property name="filterProcessesUrl" value="/j_spring_security_check" />
     </beans:bean>
 

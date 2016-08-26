@@ -51,8 +51,8 @@ public class OrderServiceImpl implements OrderService {
      * {@inheritDoc}
      */
     @Override
-    public List<OrderPojo> getNearestOrders(double latitude, double longitude) {
-        return null;
+    public List<Order> getNearestOrders(double latitude, double longitude) {
+        return orderRepository.findNearestOrders(latitude,longitude);
     }
 
     /**
