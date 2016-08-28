@@ -38,7 +38,7 @@ public class UserController {
      * Converter from Morphia entity to response.
      */
     @Qualifier(value = "userEntityToUserResponseConverter")
-    Converter<User, UserInformationResponse> userEntityToPojoConverter;
+    private Converter<User, UserInformationResponse> userEntityToPojoConverter;
 
     /**
      * Gets information about user (name, surname etc.).
@@ -49,8 +49,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public UserInformation getInfo() {
-        UserInformation userInformation = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUserInformation();
-        return userInformation;
+        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUserInformation();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "")
