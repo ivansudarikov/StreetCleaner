@@ -1,15 +1,9 @@
 package io.angelhack.mongodb.enitites;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Field;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Index;
-import org.mongodb.morphia.annotations.Indexes;
+import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.geo.Point;
 import org.mongodb.morphia.utils.IndexType;
-
-import javax.annotation.Generated;
 
 /**
  * @author amylnikov
@@ -20,8 +14,14 @@ import javax.annotation.Generated;
 })
 public class Order {
 
-
     public Order() {
+    }
+
+    public Order(String userName, String phoneNumber, Point position, OrderStatus orderStatus) {
+        this.userName = userName;
+        this.phoneNumber = phoneNumber;
+        this.position = position;
+        this.orderStatus = orderStatus;
     }
 
     @Id

@@ -1,6 +1,5 @@
 package io.hackangel.street.cleaner.services;
 
-import io.angelhack.rest.pojo.response.UserInformation;
 import io.angelhack.rest.pojo.response.UserPojo;
 
 /**
@@ -13,5 +12,4 @@ public interface UserService {
      * @param userPojo new information
      */
     void updateUser(UserPojo userPojo);
-
 }
