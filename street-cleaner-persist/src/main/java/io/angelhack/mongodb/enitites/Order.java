@@ -1,13 +1,23 @@
 package io.angelhack.mongodb.enitites;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexes;
 import org.mongodb.morphia.geo.Point;
+import org.mongodb.morphia.utils.IndexType;
 
 import javax.annotation.Generated;
 
 /**
  * @author amylnikov
  */
+@Entity
+@Indexes( {
+        @Index(fields = @Field(value = "position", type = IndexType.GEO2D))
+})
 public class Order {
 
 
@@ -15,7 +25,7 @@ public class Order {
     }
 
     @Id
-    private Object id;
+    private ObjectId id;
 
     private String imagePath;
 
@@ -31,10 +41,6 @@ public class Order {
 
     public Object getId() {
         return id;
-    }
-
-    public void setId(Object id) {
-        this.id = id;
     }
 
     public String getImagePath() {
@@ -75,6 +81,10 @@ public class Order {
 
     public void setPosition(Point position) {
         this.position = position;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     @Override
