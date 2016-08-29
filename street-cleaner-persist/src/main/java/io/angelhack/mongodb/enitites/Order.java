@@ -1,6 +1,10 @@
 package io.angelhack.mongodb.enitites;
 
-import org.bson.types.ObjectId;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.mongodb.morphia.annotations.*;
 import org.mongodb.morphia.geo.Point;
 import org.mongodb.morphia.utils.IndexType;
@@ -9,7 +13,7 @@ import org.mongodb.morphia.utils.IndexType;
  * @author amylnikov
  */
 @Entity
-@Indexes( {
+@Indexes({
         @Index(fields = @Field(value = "position", type = IndexType.GEO2D))
 })
 public class Order {
@@ -25,9 +29,9 @@ public class Order {
     }
 
     @Id
-    private ObjectId id;
+    private String orderId;
 
-    private String imagePath;
+    private Set<String> imagePaths;
 
     private String userName;
 
@@ -37,18 +41,15 @@ public class Order {
 
     private OrderStatus orderStatus;
 
-    public enum OrderStatus {NOT_INITED,IN_PROGRESS,COMPLETED}
-
-    public Object getId() {
-        return id;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public Set<String> getImagePaths() {
+        if (imagePaths == null) {
+            imagePaths = new HashSet<>();
+        }
+        return imagePaths;
     }
 
     public OrderStatus getOrderStatus() {
@@ -83,14 +84,13 @@ public class Order {
         this.position = position;
     }
 
-    public void setId(ObjectId id) {
-        this.id = id;
+    public void setOrderId(String id) {
+        this.orderId = id;
     }
 
     @Override
     public String toString() {
         return "Order{" +
-                ", imagePath='" + imagePath + '\'' +
                 ", userName='" + userName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", orderStatus=" + orderStatus +

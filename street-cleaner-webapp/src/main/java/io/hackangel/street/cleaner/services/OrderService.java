@@ -16,10 +16,9 @@ public interface OrderService {
     /**
      * Saves order and return its ID.
      * @param order
-     * @param image Order's image (con be null)
      * @return Order ID
      */
-    Object saveOrder(Order order, File image);
+    String saveOrder(Order order);
 
     /**
      *

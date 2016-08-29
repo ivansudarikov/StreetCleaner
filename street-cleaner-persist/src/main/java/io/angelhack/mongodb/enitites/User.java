@@ -27,7 +27,7 @@ public class User {
     private int imageId;
 
     @Embedded
-    List<History> historyList;
+    private List<History> historyList;
 
     public Date getBirth() {
         return birth;

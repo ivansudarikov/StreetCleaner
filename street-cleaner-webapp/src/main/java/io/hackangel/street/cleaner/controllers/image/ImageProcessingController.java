@@ -1,8 +1,18 @@
 package io.hackangel.street.cleaner.controllers.image;
 
+import io.angelhack.model.ImageCategory;
 import io.angelhack.rest.pojo.SimpleResponse;
 import io.angelhack.rest.status.Status;
+import io.angelhack.socialcall.images.attach.AttachImageService;
+import io.angelhack.socialcall.images.attach.AttachImageServicesFactory;
+import io.angelhack.socialcall.images.exception.AttachImageException;
+import io.angelhack.socialcall.images.exception.ImageServiceException;
+import io.angelhack.socialcall.images.service.ImageProcessingService;
 import io.hackangel.street.cleaner.controllers.ControllerConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,44 +37,44 @@ import java.util.concurrent.Executors;
 @RequestMapping(value = ControllerConstants.IMAGE_CONTROLLER_PATH)
 public class ImageProcessingController {
 
+    /**
+     * Class level logger.
+     */
+    public static final Logger LOGGER = LoggerFactory.getLogger(ImageProcessingController.class);
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload/{imageCategory}")
+    @Autowired
+    private ImageProcessingService imageProcessingService;
+
+    @Autowired
+    private AttachImageServicesFactory attachImageServicesFactory;
+
+    @RequestMapping(method = RequestMethod.POST, value = "/{imageCategory}/")
     @PreAuthorize("isAuthenticated()")
-    public SimpleResponse uploadJpegImage(@PathVariable("imageCategory") String imageType, @RequestParam("file") MultipartFile file) {
+    public SimpleResponse uploadImage(@PathVariable("imageCategory") String rawImageCategory, @RequestParam("referenceId") String referenceId, @RequestParam("file") MultipartFile file) {
         SimpleResponse simpleResponse = new SimpleResponse();
         simpleResponse.setStatus(Status.OK);
-        File image;
-        try {
-            image = saveImage("", imageType, file.getInputStream());
-            simpleResponse.setMessage(image.getName());
-        } catch (IOException e) {
-            e.printStackTrace();
+        ImageCategory value = ImageCategory.getFromStringValue(rawImageCategory);
+        if (value != null) {
+            AttachImageService imageService = attachImageServicesFactory.getAttachImageService(value);
+            if (imageService != null) {
+                try {
+                    String imagePath = imageProcessingService.saveImage(file.getInputStream(), value);
+                    imageService.attachImage(referenceId, imagePath);
+                } catch (ImageServiceException | AttachImageException | IOException e) {
+                    simpleResponse.setStatus(Status.ERROR);
+                    simpleResponse.setMessage(e.getMessage());
+                }
+            } else {
+                simpleResponse.setStatus(Status.ERROR);
+                simpleResponse.setMessage("No image service found!");
+            }
+        } else {
+            simpleResponse.setStatus(Status.ERROR);
+            simpleResponse.setMessage("Unknown message category: " + rawImageCategory);
         }
         return simpleResponse;
     }
 
-    private File saveImage(String userName, String type, InputStream initialStream) {
-        File folder = new File(File.separator + "images" + File.separator + userName + File.separator);
-        folder.mkdirs();
-        return writeImage(folder, initialStream);
-    }
-
-    private File writeImage(File folder, InputStream initialStream) {
-        File image = new File(folder, UUID.randomUUID().toString().replace("-", "") + ".jpg");
-        try {
-            image.createNewFile();
-            try (OutputStream outStream = new FileOutputStream(image)) {
-                byte[] buffer = new byte[8 * 1024];
-                int bytesRead;
-                while ((bytesRead = initialStream.read(buffer)) != -1) {
-                    outStream.write(buffer, 0, bytesRead);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
 
     @RequestMapping("")
     @ResponseBody
