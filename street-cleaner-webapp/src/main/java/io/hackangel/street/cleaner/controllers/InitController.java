@@ -34,8 +34,4 @@ public class InitController {
 		Order order = new Order("German", user.getPhoneNumber(), point, Order.OrderStatus.NOT_INITED);
 		orderService.saveOrder(order, null);
 	}
-
-
-
-
 }
