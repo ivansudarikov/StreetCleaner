@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>street.cleaner.parent</artifactId>
+        <groupId>io.angelhack.street.cleaner</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.angelhack.street.cleaner</groupId>
+    <artifactId>street-cleaner-images</artifactId>
+    <version>1.0-SNAPHSOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.angelhack.street.cleaner</groupId>
+            <artifactId>street-cleaner-model</artifactId>
+        </dependency>
+    </dependencies>
+</project>

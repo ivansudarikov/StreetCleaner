@@ -21,6 +21,7 @@
         <module>street-cleaner-model</module>
         <module>street-cleaner-persist</module>
         <module>street-cleaner-webapp</module>
+        <module>street-cleaner-images</module>
     </modules>
 
     <build>
@@ -54,4 +55,38 @@
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.angelhack.street.cleaner</groupId>
+                <artifactId>street-cleaner-webapp</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.angelhack.street.cleaner</groupId>
+                <artifactId>street-cleaner-model</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.angelhack.street.cleaner</groupId>
+                <artifactId>street-cleaner-persist</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.angelhack.street.cleaner</groupId>
+                <artifactId>street-cleaner-images</artifactId>
+                <version>1.0-SNAPHSOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>3.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery</artifactId>
+                <version>2.0.3-1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
