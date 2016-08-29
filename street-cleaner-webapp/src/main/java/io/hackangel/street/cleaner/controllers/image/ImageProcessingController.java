@@ -25,12 +25,12 @@ import java.util.concurrent.Executors;
  */
 @RestController
 @RequestMapping(value = ControllerConstants.IMAGE_CONTROLLER_PATH)
-public class ImageUploadController {
+public class ImageProcessingController {
 
 
-    @RequestMapping(method = RequestMethod.POST, value = "/upload/{imageType}")
+    @RequestMapping(method = RequestMethod.POST, value = "/upload/{imageCategory}")
     @PreAuthorize("isAuthenticated()")
-    public SimpleResponse uploadJpegImage(@PathVariable("imageType") String imageType, @RequestParam("file") MultipartFile file) {
+    public SimpleResponse uploadJpegImage(@PathVariable("imageCategory") String imageType, @RequestParam("file") MultipartFile file) {
         SimpleResponse simpleResponse = new SimpleResponse();
         simpleResponse.setStatus(Status.OK);
         File image;
