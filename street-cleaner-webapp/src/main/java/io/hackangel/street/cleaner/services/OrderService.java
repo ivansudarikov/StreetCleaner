@@ -23,6 +23,13 @@ public interface OrderService {
     String saveOrder(Order order);
 
     /**
+     * Gets order by its id.
+     * @param orderId order's
+     * @return order if it exists, otherwise null
+     */
+    Order getOrderById(String orderId);
+
+    /**
      * Gets nearest orders (in radius ~300m) by given coordinates
      *
      * @param latitude
@@ -67,5 +74,19 @@ public interface OrderService {
      * @return
      */
     List<OrderPojo> getAll();
+
+    /**
+     * Returns user orders, which he created
+     * @param userName
+     * @return
+     */
+    List<Order> getUserOrders(String userName);
+
+    /**
+     *
+     * @param userName
+     * @return
+     */
+    List<Order> getSubscribedOrders(String userName);
 
 }

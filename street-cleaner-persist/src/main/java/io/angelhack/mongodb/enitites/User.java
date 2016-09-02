@@ -3,6 +3,7 @@ package io.angelhack.mongodb.enitites;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,6 +80,9 @@ public class User {
     }
 
     public List<History> getHistoryList() {
+        if(historyList==null) {
+            historyList = new ArrayList<>();
+        }
         return historyList;
     }
 

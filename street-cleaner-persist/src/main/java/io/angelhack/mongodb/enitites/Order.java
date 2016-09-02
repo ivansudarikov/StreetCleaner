@@ -30,6 +30,7 @@ public class Order {
     }
 
     @Reference
+    @Indexed
     private List<User> subscribedUsers;
 
     @Id
@@ -37,6 +38,7 @@ public class Order {
 
     private Set<String> imagePaths;
 
+    @Indexed
     private String userName;
 
     private String phoneNumber;

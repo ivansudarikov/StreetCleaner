@@ -12,4 +12,11 @@ public interface UserService {
      * @param userPojo new information
      */
     void updateUser(UserPojo userPojo);
+
+    /**
+     *
+     * @param userName
+     * @param orderId
+     */
+    void thankUser(String userName, String orderId, String message);
 }

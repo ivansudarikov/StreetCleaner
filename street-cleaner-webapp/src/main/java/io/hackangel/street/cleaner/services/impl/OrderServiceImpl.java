@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,6 +39,11 @@ public class OrderServiceImpl implements OrderService {
         String orderImageId = null;
         orderRepository.save(order);
         return order.getOrderId();
+    }
+
+    @Override
+    public Order getOrderById(String orderId) {
+        return orderRepository.findByOrderId(orderId);
     }
 
     /**
@@ -119,5 +125,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderPojo> getAll() {
         return null;
+    }
+
+    @Override
+    public List<Order> getUserOrders(String userName) {
+        return orderRepository.getOrdersByUser(userName);
+    }
+
+    @Override
+    public List<Order> getSubscribedOrders(String userName) {
+        User user = userRepository.findByName(userName);
+        if(user==null) {
+            return new LinkedList<>();
+        }
+        return orderRepository.getSubscribedOrders(user);
     }
 }

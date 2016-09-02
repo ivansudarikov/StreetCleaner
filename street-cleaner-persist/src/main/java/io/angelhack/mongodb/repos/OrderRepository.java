@@ -28,8 +28,16 @@ public class OrderRepository extends MongoRepository<Order,ObjectId> {
         return datastore.find(classType).field("position").near(GeoJson.point(latitude,longitude),10000).field("orderStatus").equal(OrderStatus.IN_PROGRESS.toString()).asList();
     }
 
+    public List<Order> getOrdersByUser(String userName) {
+        return datastore.find(classType).field("userName").equal(userName).asList();
+    }
+
+    public List<Order> getSubscribedOrders(User user) {
+        return datastore.find(classType).field("subscribedUsers").hasThisElement(user).asList();
+    }
+
     public void removeUserFromOrder(User user, Order order) {
-        UpdateOperations<Order> updateOps = datastore.createUpdateOperations(Order.class).removeAll("subscribedUsers", user);
+        UpdateOperations<Order> updateOps = datastore.createUpdateOperations(classType).removeAll("subscribedUsers", user);
         datastore.update(order,updateOps);
     }
 

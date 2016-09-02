@@ -1,6 +1,9 @@
 package io.hackangel.street.cleaner.services.impl;
 
+import io.angelhack.mongodb.enitites.History;
+import io.angelhack.mongodb.enitites.Order;
 import io.angelhack.mongodb.enitites.User;
+import io.angelhack.mongodb.repos.OrderRepository;
 import io.angelhack.mongodb.repos.UserRepository;
 import io.angelhack.rest.pojo.response.UserInformation;
 import io.angelhack.rest.pojo.response.UserPojo;
@@ -8,6 +11,8 @@ import io.hackangel.street.cleaner.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * @{inheritDoc}
@@ -17,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     /**
      * Searches user in repository by given login.
@@ -39,6 +47,30 @@ public class UserServiceImpl implements UserService {
                 updateUserInformation(userPojo);
             }
         }
+    }
+
+    private History mapToHistory(String message, Order order) {
+        History history = new History();
+        history.setDate(new Date());
+        history.setMessage(message);
+        history.setOrder(order);
+        return history;
+    }
+
+    @Override
+    public void thankUser(String userName, String orderId, String message) {
+        User user = userRepository.findByName(userName);
+        if(user==null) {
+            return;
+        }
+
+        Order order = orderRepository.findByOrderId(orderId);
+        if(order==null) {
+            return;
+        }
+
+        user.getHistoryList().add(mapToHistory(message,order));
+        userRepository.save(user);
     }
 
     private void updateUserInformation(UserPojo userPojo) {
