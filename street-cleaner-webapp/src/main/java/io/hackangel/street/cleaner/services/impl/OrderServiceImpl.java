@@ -1,19 +1,22 @@
 package io.hackangel.street.cleaner.services.impl;
 
+import io.angelhack.mongodb.enitites.Comment;
 import io.angelhack.mongodb.enitites.Order;
+import io.angelhack.mongodb.enitites.OrderStatus;
+import io.angelhack.mongodb.enitites.User;
 import io.angelhack.mongodb.repos.OrderRepository;
+import io.angelhack.mongodb.repos.UserRepository;
 import io.angelhack.rest.pojo.OrderPojo;
+import io.angelhack.rest.pojo.response.UserInformation;
 import io.hackangel.street.cleaner.services.OrderService;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.List;
 
 /**
- *
  * {@inheritDoc}
  *
  * @author amylnikov
@@ -24,35 +27,90 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public Object saveOrder(Order order, File image) {
+    public String saveOrder(Order order) {
         String orderImageId = null;
-        if(image!=null) {
-            orderImageId = saveOrderImage(image);
-        }
-        order.setImagePath(orderImageId);
         orderRepository.save(order);
-        return order.getId();
-    }
-
-    /**
-     * Saves order's image to disk and return its path.
-     * @param orderImgae order image
-     * @return image's path
-     */
-    private String saveOrderImage(File orderImgae) {
-        return null;
+        return order.getOrderId();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<OrderPojo> getNearestOrders(double latitude, double longitude) {
-        return null;
+    public List<Order> getNearestOrders(double latitude, double longitude) {
+        return orderRepository.findNearestOrders(latitude, longitude);
+    }
+
+    @Override
+    public boolean addCommentToOrder(String orderId, String message, UserInformation user) {
+        try {
+            Order order = orderRepository.findByOrderId(orderId);
+            if(order==null) {
+                return false;
+            }
+            User userEntity = userRepository.findByName(user.getUserName());
+            if(userEntity==null) {
+                return false;
+            }
+            Comment comment = new Comment();
+            comment.setUser(userEntity);
+            comment.setMessage(message);
+            order.getComments().add(comment);
+            orderRepository.save(order);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean subscribeToOrder(String orderId, UserInformation user) {
+        Order order = orderRepository.findByOrderId(orderId);
+        if(order==null) {
+            return false;
+        }
+        User userEntity = userRepository.findByName(user.getUserName());
+        if(userEntity==null) {
+            return false;
+        }
+        order.getSubscribedUsers().add(userEntity);
+        orderRepository.save(order);
+        return true;
+    }
+
+    @Override
+    public boolean unsubscribeToOrder(String orderId, UserInformation user) {
+        Order order = orderRepository.findByOrderId(orderId);
+        if(order==null) {
+            return false;
+        }
+        User userEntity = userRepository.findByName(user.getUserName());
+        if(userEntity==null) {
+            return false;
+        }
+        orderRepository.removeUserFromOrder(userEntity,order);
+        return true;
+    }
+
+    @Override
+    public boolean cancelOrder(String orderID, UserInformation user) {
+        Order order = orderRepository.findByOrderId(orderID);
+        if(order==null) {
+            return false;
+        }
+        if(!order.getUserName().equals(user.getUserName())) {
+            return false;
+        }
+        order.setOrderStatus(OrderStatus.CANCELED);
+        orderRepository.save(order);
+        return true;
     }
 
     /**

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component(value = "userEntityToUserResponseConverter")
 public class UserEntityToUserResponseConverter implements Converter<User, UserInformationResponse> {
+
     @Override
     public UserInformationResponse convert(User user) {
         UserInformationResponse response = new UserInformationResponse();

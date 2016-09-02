@@ -5,9 +5,6 @@ import io.angelhack.rest.pojo.response.UserPojo;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by amylniko on 28.07.2016.
- */
 @Component(value = "userPojoToEntityMapper")
 public class UserPojoToEntityMapper implements Converter<UserPojo,User> {
 

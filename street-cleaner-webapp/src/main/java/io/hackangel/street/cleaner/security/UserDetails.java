@@ -4,7 +4,10 @@ import io.angelhack.mongodb.enitites.User;
 import io.angelhack.rest.pojo.response.UserInformation;
 
 /**
- * Created by amylniko on 14.07.2016.
+ * User details which stired in Spring Security session.
+ * Contains user (not entity, just pojo)
+ *
+ * @author amylniko
  */
 public class UserDetails  {
 

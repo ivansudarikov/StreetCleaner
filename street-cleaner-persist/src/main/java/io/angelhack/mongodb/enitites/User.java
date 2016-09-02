@@ -1,6 +1,5 @@
 package io.angelhack.mongodb.enitites;
 
-import com.sun.javafx.beans.IDProperty;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 
@@ -8,9 +7,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by sasha_000 on 10.06.2016.
- */
 public class User {
 
     @Id
@@ -22,6 +18,8 @@ public class User {
 
     private String surName;
 
+    private String phoneNumber;
+
     private String email;
 
     private Date birth;
@@ -29,7 +27,7 @@ public class User {
     private int imageId;
 
     @Embedded
-    List<History> historyList;
+    private List<History> historyList;
 
     public Date getBirth() {
         return birth;
@@ -57,9 +55,10 @@ public class User {
 
     public User() {}
 
-    public User(String userName, String password) {
+    public User(String userName, String password, String phoneNumber) {
         this.name = userName;
         this.password = password;
+		this.phoneNumber = phoneNumber;
         this.historyList = new LinkedList<History>();
     }
 
@@ -103,12 +102,28 @@ public class User {
         this.imageId = imageId;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", historyList=" + historyList +
-                '}';
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"login='" + login + '\'' +
+				", name='" + name + '\'' +
+				", password='" + password + '\'' +
+				", surName='" + surName + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", email='" + email + '\'' +
+				", birth=" + birth +
+				", imageId=" + imageId +
+				", historyList=" + historyList +
+				'}';
+	}
+
+
 }

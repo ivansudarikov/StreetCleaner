@@ -1,7 +1,9 @@
 package io.hackangel.street.cleaner.services;
 
 import io.angelhack.mongodb.enitites.Order;
+import io.angelhack.mongodb.enitites.User;
 import io.angelhack.rest.pojo.OrderPojo;
+import io.angelhack.rest.pojo.response.UserInformation;
 
 import java.io.File;
 import java.util.List;
@@ -16,21 +18,52 @@ public interface OrderService {
     /**
      * Saves order and return its ID.
      * @param order
-     * @param image Order's image (con be null)
      * @return Order ID
      */
-    Object saveOrder(Order order, File image);
+    String saveOrder(Order order);
 
     /**
+     * Gets nearest orders (in radius ~300m) by given coordinates
      *
      * @param latitude
      * @param longitude
      * @return
      */
-    List<OrderPojo> getNearestOrders(double latitude, double longitude);
+    List<Order> getNearestOrders(double latitude, double longitude);
 
     /**
      *
+     * @param orderId
+     * @param message
+     * @param user
+     * @return
+     */
+    boolean addCommentToOrder(String orderId, String message, UserInformation user);
+
+    /**
+     *
+     * @param orderId
+     * @param user
+     * @return
+     */
+    boolean subscribeToOrder(String orderId, UserInformation user);
+
+    /**
+     *
+     * @param orderId
+     * @param user
+     * @return
+     */
+    boolean unsubscribeToOrder(String orderId, UserInformation user);
+
+    /**
+     *
+     * @return
+     */
+    boolean cancelOrder(String orderID, UserInformation user);
+
+    /**
+     * Gets all orders from repository.
      * @return
      */
     List<OrderPojo> getAll();

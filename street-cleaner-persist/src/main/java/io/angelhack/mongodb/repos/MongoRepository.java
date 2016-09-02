@@ -24,7 +24,7 @@ public abstract class MongoRepository<E,K>  {
     /**
      * Entity class.
      */
-    private Class<E> classType;
+    protected Class<E> classType;
 
     /**
      * Default method for save entity.
@@ -68,7 +68,7 @@ public abstract class MongoRepository<E,K>  {
      * @return entity if it exists in collection, otherwise null
      */
     public E find(K key) {
-        return datastore.find(classType,"_id",key).get();
+        return datastore.find(classType,"id",key).get();
     }
 
     /**

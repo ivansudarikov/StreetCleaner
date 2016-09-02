@@ -1,23 +1,41 @@
 package io.angelhack.mongodb.enitites;
 
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.geo.Point;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.annotation.Generated;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.*;
+import org.mongodb.morphia.geo.Point;
+import org.mongodb.morphia.utils.IndexType;
 
 /**
  * @author amylnikov
  */
+@Entity
+@Indexes({
+        @Index(fields = @Field(value = "position", type = IndexType.GEO2D))
+})
 public class Order {
-
 
     public Order() {
     }
 
-    @Id
-    private Object id;
+    public Order(String userName, String phoneNumber, Point position, OrderStatus orderStatus) {
+        this.userName = userName;
+        this.phoneNumber = phoneNumber;
+        this.position = position;
+        this.orderStatus = orderStatus;
+    }
 
-    private String imagePath;
+    @Reference
+    private List<User> subscribedUsers;
+
+    @Id
+    private ObjectId orderId;
+
+    private Set<String> imagePaths;
 
     private String userName;
 
@@ -27,22 +45,25 @@ public class Order {
 
     private OrderStatus orderStatus;
 
-    public enum OrderStatus {NOT_INITED,IN_PROGRESS,COMPLETED}
+    @Embedded
+    private List<Comment> comments;
 
-    public Object getId() {
-        return id;
+    public List<Comment> getComments() {
+        if(comments == null) {
+            comments = new ArrayList<>();
+        }
+        return comments;
     }
 
-    public void setId(Object id) {
-        this.id = id;
+    public String getOrderId() {
+        return orderId.toString();
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public Set<String> getImagePaths() {
+        if (imagePaths == null) {
+            imagePaths = new HashSet<>();
+        }
+        return imagePaths;
     }
 
     public OrderStatus getOrderStatus() {
@@ -77,10 +98,20 @@ public class Order {
         this.position = position;
     }
 
+    public List<User> getSubscribedUsers() {
+        if(subscribedUsers==null) {
+            subscribedUsers = new ArrayList<>();
+        }
+        return subscribedUsers;
+    }
+
+    public void setSubscribedUsers(List<User> subscribedUsers) {
+        this.subscribedUsers = subscribedUsers;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
-                ", imagePath='" + imagePath + '\'' +
                 ", userName='" + userName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", orderStatus=" + orderStatus +

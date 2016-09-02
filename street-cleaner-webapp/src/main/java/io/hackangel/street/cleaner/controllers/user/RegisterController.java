@@ -1,5 +1,6 @@
 package io.hackangel.street.cleaner.controllers;
 
+import io.angelhack.rest.pojo.response.UserInformation;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import io.angelhack.mongodb.enitites.User;
@@ -44,6 +45,10 @@ public class RegisterController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    @Qualifier(value = "userEntityToUserInformationConverter")
+    Converter<User, UserInformation> converter;
+
     /**
      * Register new user (persist in DB and provide permissions).
      * @return operation status
@@ -72,7 +77,8 @@ public class RegisterController {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Authorities.USER.name()));
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.getName(), user.getPassword(), authorities);
-        authentication.setDetails(user);
+        UserInformation userInformation = converter.convert(user);
+        authentication.setDetails(userInformation);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
