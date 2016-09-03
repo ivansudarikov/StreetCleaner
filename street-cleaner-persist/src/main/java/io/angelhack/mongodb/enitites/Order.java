@@ -29,7 +29,7 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    @Reference
+    @Reference(lazy = true)
     @Indexed
     private List<User> subscribedUsers;
 
