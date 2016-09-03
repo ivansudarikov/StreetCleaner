@@ -49,7 +49,7 @@ public class UserController {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public UserInformation getInfo() {
-        return ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUserInformation();
+        return ((UserInformation) SecurityContextHolder.getContext().getAuthentication().getDetails());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "")

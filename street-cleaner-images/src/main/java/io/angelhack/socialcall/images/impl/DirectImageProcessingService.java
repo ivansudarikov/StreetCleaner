@@ -3,6 +3,9 @@ package io.angelhack.socialcall.images.impl;
 import io.angelhack.model.ImageCategory;
 import io.angelhack.socialcall.images.exception.ImageServiceException;
 import io.angelhack.socialcall.images.service.ImageProcessingService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -10,6 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
@@ -22,15 +28,20 @@ import java.util.UUID;
 public class DirectImageProcessingService implements ImageProcessingService {
 
     public static final int BUFFER_SIZE = 8 * 1024;
+    public static final String IMAGE_PREFIX = "image";
+
+    @Value("${image.storage.prefix.path}")
+    private String imagesPrefixPath;
 
     @Override
     public String saveImage(InputStream imageStream, ImageCategory category) throws ImageServiceException {
         // TODO we should use file type
-        return saveImage(category.getRawType(), imageStream).getName();
+        String rawType = category.getRawType();
+        return IMAGE_PREFIX + "/" + rawType + "/" + saveImage(rawType, imageStream).getName();
     }
 
     private File saveImage(String type, InputStream initialStream) throws ImageServiceException {
-        File folder = new File(File.separator + "images" + File.separator + type + File.separator);
+        File folder = new File(imagesPrefixPath + File.separator + type + File.separator);
         folder.mkdirs();
         return writeImage(folder, initialStream);
     }
@@ -54,7 +65,12 @@ public class DirectImageProcessingService implements ImageProcessingService {
     }
 
     @Override
-    public byte[] readImage(String path) throws ImageServiceException {
-        return new byte[0];
+    public byte[] readImage(ImageCategory category, String name) throws ImageServiceException {
+        try {
+            Path path = Paths.get(imagesPrefixPath + File.separator + category.getRawType() + File.separator + name);
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            throw new ImageServiceException("Unable to read image: " + name, e);
+        }
     }
 }

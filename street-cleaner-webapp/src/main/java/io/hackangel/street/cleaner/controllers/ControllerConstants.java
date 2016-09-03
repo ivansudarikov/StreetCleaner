@@ -19,7 +19,7 @@ public final class ControllerConstants {
     /**
      * Defines prefix for image processing controller.
      */
-    public static final String IMAGE_CONTROLLER_PATH = API_PREFIX + "/image";
+    public static final String IMAGE_UPLOAD_CONTROLLER_PATH = API_PREFIX + "/image";
 
     /**
      * Defines prefix for order processing controller.
@@ -31,5 +31,11 @@ public final class ControllerConstants {
      */
     public static final String USER_CONTROLLER_PATH = API_PREFIX + "/user";
 
+    /**
+     * Defines prefix for downloading images to client applications such as mobile app or web-part.l
+     */
+    public static final String IMAGE_DOWNLOAD_CONTROLLER_PATH = "/image";
+
+    public static final long MAXIMUM_FILE_SIZE_ALLOWED = 650_000;
 
 }

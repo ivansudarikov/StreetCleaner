@@ -14,6 +14,8 @@
         <custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"   />
         <!-- Register should be accessible -->
         <intercept-url pattern="/rest/**/register" access="permitAll()"/>
+        <!-- Images should be accessible -->
+        <intercept-url pattern="/images/**" access="permitAll()"/>
         <intercept-url pattern="/rest/**" access="isAuthenticated()" />
         <logout logout-url="/logout" invalidate-session="true"/>
         <csrf disabled="true"/>
@@ -33,6 +35,16 @@
 
     <beans:bean name="mongoAuthenticationManager" class="io.hackangel.street.cleaner.security.MongoAuthenticationManager"/>
 
+    <beans:bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="locations">
+            <beans:list>
+                <beans:value>images.properties</beans:value>
+                <beans:value>application.properties</beans:value>
+                <!-- List other property files here -->
+                <!-- value>mail.properties</value -->
+            </beans:list>
+        </beans:property>
+    </beans:bean>
 
     <authentication-manager alias="authManager"  >
         <authentication-provider ref="mongoAuthenticationManager"/>

@@ -12,9 +12,11 @@ import java.io.InputStream;
 public interface ImageProcessingService {
 
     /**
-     * @param image
-     * @param category
-     * @return relative image stored path, to be used in {@link }
+     * Saves given image input stream of given image category.
+     *
+     * @param image    input stream, should not be {@code null}.
+     * @param category image category, avatar, order and etc., should not be {@code null}.
+     * @return relative image stored path, to be used in {@link #readImage(ImageCategory, String)} this path will be used as is on webpages.
      * @throws ImageServiceException
      */
     String saveImage(InputStream image, ImageCategory category) throws ImageServiceException;
@@ -24,5 +26,5 @@ public interface ImageProcessingService {
      * @return
      * @throws ImageServiceException
      */
-    byte[] readImage(String path) throws ImageServiceException;
+    byte[] readImage(ImageCategory category, String name) throws ImageServiceException;
 }

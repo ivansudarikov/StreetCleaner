@@ -25,7 +25,7 @@ public class User {
 
     private Date birth;
 
-    private int imageId;
+    private String imagePath;
 
     @Embedded
     private List<History> historyList;
@@ -98,12 +98,12 @@ public class User {
         this.login = login;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
 	public String getPhoneNumber() {
@@ -124,7 +124,7 @@ public class User {
 				", phoneNumber='" + phoneNumber + '\'' +
 				", email='" + email + '\'' +
 				", birth=" + birth +
-				", imageId=" + imageId +
+				", imagePath=" + imagePath +
 				", historyList=" + historyList +
 				'}';
 	}

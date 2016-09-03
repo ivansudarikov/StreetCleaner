@@ -17,7 +17,7 @@ public class UserEntityToUserInformationConverter implements Converter<User, Use
         response.setSurName(user.getSurName());
         response.setBirth(user.getBirth());
         response.setEmail(user.getEmail());
-        response.setImageId(0);
+        response.setImagePath(user.getImagePath());
         response.setName(user.getName());
         return response;
     }

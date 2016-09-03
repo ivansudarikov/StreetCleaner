@@ -7,7 +7,7 @@ package io.angelhack.model;
  * @since 29.08.2016
  */
 public enum ImageCategory {
-    AVATAR("ava"), ORDER("order"), COMMENT("comment"), MESSAGE("message");
+    AVATAR("avatar"), ORDER("order"), COMMENT("comment"), MESSAGE("message");
 
     private final String rawType;
 
@@ -26,7 +26,7 @@ public enum ImageCategory {
      * Retrieves {@link ImageCategory} according given rawName.<p>
      * Current available:
      * <ul>
-     * <li> {@code ava} - {@link ImageCategory#AVATAR}
+     * <li> {@code avatar} - {@link ImageCategory#AVATAR}
      * <li> {@code order} - {@link ImageCategory#ORDER}
      * <li> {@code comment} - {@link ImageCategory#COMMENT}
      * <li> {@code message} - {@link ImageCategory#MESSAGE}

@@ -17,6 +17,4 @@ public class UserRepository extends MongoRepository<User, String> {
     public User findByName(String name) {
         return findOneByField("name",name);
     }
-
-
 }

@@ -20,7 +20,7 @@ public class UserInformation {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm a z")
     private Date birth;
 
-    private int imageId;
+    private String imagePath;
 
     public String getUserName() {
         return userName;
@@ -62,11 +62,11 @@ public class UserInformation {
         this.birth = birth;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
