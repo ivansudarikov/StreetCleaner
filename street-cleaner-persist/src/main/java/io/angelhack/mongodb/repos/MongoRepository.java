@@ -74,6 +74,8 @@ public abstract class MongoRepository<E,K>  {
     /**
      * Default method for getting one entity from collection by given field
      *
+     * NOTE! Field may be not indexed
+     *
      * @param fieldName field to compare
      * @param keyValue field's to compare value
      * @return entity if it exists in collection, otherwise null

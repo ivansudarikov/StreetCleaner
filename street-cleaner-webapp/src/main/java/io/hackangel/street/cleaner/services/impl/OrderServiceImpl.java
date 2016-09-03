@@ -13,7 +13,6 @@ import io.hackangel.street.cleaner.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
             if(order==null) {
                 return false;
             }
-            User userEntity = userRepository.findByName(user.getUserName());
+            User userEntity = userRepository.findByLogin(user.getUserName());
             if(userEntity==null) {
                 return false;
             }
@@ -83,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
         if(order==null) {
             return false;
         }
-        User userEntity = userRepository.findByName(user.getUserName());
+        User userEntity = userRepository.findByLogin(user.getUserName());
         if(userEntity==null) {
             return false;
         }
@@ -98,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
         if(order==null) {
             return false;
         }
-        User userEntity = userRepository.findByName(user.getUserName());
+        User userEntity = userRepository.findByLogin(user.getUserName());
         if(userEntity==null) {
             return false;
         }
@@ -135,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getSubscribedOrders(String userName) {
-        User user = userRepository.findByName(userName);
+        User user = userRepository.findByLogin(userName);
         if(user==null) {
             return new LinkedList<>();
         }

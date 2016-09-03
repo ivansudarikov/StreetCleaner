@@ -4,7 +4,6 @@ import static io.angelhack.socialcall.images.attach.AttachConstants.AVATAR_ATTAC
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.angelhack.mongodb.enitites.User;
@@ -31,7 +30,7 @@ public class AvatarAttachService implements AttachImageService {
             throw new AttachImageException("You can't change not your own avatar!");
         }
         // TODO A. Mylnikov wtf with user creations?
-        User userEntity = userRepository.findOneByField("login", userName);
+        User userEntity = userRepository.findByLogin(userName);
         userEntity.setImagePath(imagePath);
         userRepository.save(userEntity);
     }

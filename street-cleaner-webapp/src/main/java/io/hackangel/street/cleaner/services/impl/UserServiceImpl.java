@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
      * @return user if given login exists, otherwise null.
      */
     public User findUserByLogin(String login) {
-        return userRepository.find(login);
+        return userRepository.findByLogin(login);
     }
 
     /**
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void thankUser(String userName, String orderId, String message) {
-        User user = userRepository.findByName(userName);
+        User user = userRepository.findByLogin(userName);
         if(user==null) {
             return;
         }

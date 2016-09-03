@@ -28,7 +28,7 @@ public class MongoAuthenticationManager implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User user = userRepository.find((String) authentication.getPrincipal());
+        User user = userRepository.findByLogin((String) authentication.getPrincipal());
         if(user==null || !user.getPassword().equals(authentication.getCredentials())) {
             throw new BadCredentialsException("User not found");
         }

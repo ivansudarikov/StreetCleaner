@@ -1,7 +1,10 @@
 package io.angelhack.mongodb.enitites;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexed;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +14,9 @@ import java.util.List;
 public class User {
 
     @Id
+    private ObjectId id;
+
+    @Indexed(unique = true)
     private String login;
 
     private String name;
@@ -114,7 +120,11 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
-	@Override
+    public ObjectId getId() {
+        return id;
+    }
+
+    @Override
 	public String toString() {
 		return "User{" +
 				"login='" + login + '\'' +
