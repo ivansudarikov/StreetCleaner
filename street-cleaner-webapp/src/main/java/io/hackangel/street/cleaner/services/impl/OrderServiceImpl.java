@@ -37,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String saveOrder(Order order) {
         String orderImageId = null;
+        order.setOrderStatus(OrderStatus.IN_PROGRESS);
         orderRepository.save(order);
         return order.getOrderId();
     }

@@ -45,6 +45,8 @@ public class Order {
 
     private Point position;
 
+    private String information;
+
     private OrderStatus orderStatus;
 
     @Embedded
@@ -70,6 +72,14 @@ public class Order {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

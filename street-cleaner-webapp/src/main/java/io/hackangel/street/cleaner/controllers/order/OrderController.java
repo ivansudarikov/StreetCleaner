@@ -65,8 +65,8 @@ public class OrderController {
         return allOrders;
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{orderId}")
-    public SimpleResponse finalizeOrder(@PathVariable("orderId") String orderId, OrderStatusPojo orderStatus) {
+    @RequestMapping(method = RequestMethod.POST, value = "/{orderId}/finalize")
+    public SimpleResponse finalizeOrder(@PathVariable("orderId") String orderId) {
         UserInformation userInformation = (UserInformation) SecurityContextHolder.getContext().getAuthentication().getDetails();
         boolean finalizeResult = orderService.cancelOrder(orderId, userInformation);
         if (finalizeResult) {
